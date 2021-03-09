@@ -17,13 +17,16 @@ import {
   ArrowDownOutlined,
   TrophyTwoTone,
   FundTwoTone,
-  StopTwoTone
+  StopTwoTone,
+  ClockCircleTwoTone
 } from '@ant-design/icons'
 import getWindowDimensions from '../../helpers/getWindowDimensions'
 import Meta from 'antd/lib/card/Meta'
 import Avatar from 'antd/lib/avatar/avatar'
 import { gamblingService } from '../../services/gambling.service'
 import { accountService } from '../../services'
+import dayjs from 'dayjs'
+import useCountDown from 'react-countdown-hook'
 const config = require('../../config')
 
 const consts = {
@@ -33,8 +36,8 @@ const consts = {
   }
 }
 
-const Flexed = ({ children, conditions }) =>
-  conditions ? (
+const Flexed = (props) =>
+  props.conditions ? (
     <div
       style={{
         display: 'flex',
@@ -42,12 +45,16 @@ const Flexed = ({ children, conditions }) =>
         justifyContent: 'space-evenly',
         width: '100%',
         padding: 16
-      }}>
-      {children}
+      }}
+      {...props}>
+      {props.children}
     </div>
   ) : (
     <></>
   )
+
+const initialTime = 60 * 1000 // initial time in milliseconds, defaults to 60000
+const interval = 1000 // interval to change remaining time amount, defaults to 1000
 
 const Gambling = () => {
   const [isEmptyState, setIsEmptyState] = React.useState(true)
@@ -68,13 +75,31 @@ const Gambling = () => {
   const [threshold, setThreshold] = React.useState(0)
   const [currentPrice, setCurrentPrice] = React.useState(0)
 
-  const [time, setTime] = React.useState(0)
-  const [timeThreshold, setTimeThreshold] = React.useState(30)
+  const [unix, setUnix] = React.useState(0)
+  const [timeThreshold, setTimeThreshold] = React.useState(0)
+  const [startUnix, setStartUnix] = React.useState(0)
+  const [time, setTime] = React.useState(new Date(0))
+  const [timeString, setTimeString] = React.useState('')
 
   const [currentBalance, setCurrentBalance] = React.useState(0)
 
-  React.useState(() => {
-    accountService.getBalance().then((balance) => setCurrentBalance(balance))
+  const [timer, setTimer] = React.useState(null)
+
+  const [startDate, setStartDate] = React.useState(new Date(0))
+
+  const [timeLeft, { start, pause, resume, resets }] = useCountDown(
+    initialTime,
+    interval
+  )
+
+  // React.useEffect(() => {
+  //   accountService.getBalance().then((balance) => setCurrentBalance(balance))
+  // }, [])
+
+  React.useEffect(() => {
+  //   gamblingService.connection.start().then(() => {
+      hookOnEvents()
+  //   })
   }, [])
 
   const reset = () => {
@@ -118,6 +143,10 @@ const Gambling = () => {
     gamblingService.placeBet(betAmount, true)
   }
 
+  const calculateTime = () => {
+    return (unix - startUnix) / 1000
+  }
+
   //#region Connections
 
   const hookOnEvents = () => {
@@ -133,17 +162,37 @@ const Gambling = () => {
       MatchPending(message.opponentName)
       setOpenPrice(message.startPrice)
       setThreshold(message.threshold)
+      setTimeThreshold(message.unixThreshold)
+      setStartUnix(message.startUnix)
+
+      start()
+
+      // const timerRef = setInterval(() => {
+      //   // if (time.getSeconds() < message.unixThreshold) {
+      //   //   setTime(new Date())
+      //   //   setTimeString(dayjs(time).format('mm:ss'))
+      //   // }
+      //   let ds = dayjs(startDate).subtract(new Date())
+
+      //   setTimeString(ds.format('mm:ss'))
+      // }, 1000)
     })
 
     gamblingService.connection.on('PriceEvent', (message) => {
       setCurrentPrice(message.currentPrice)
+      setUnix(message.currentUnix)
+
+      console.log(timeLeft)
     })
 
     gamblingService.connection.on('GameEnded', (message) => {
       setWon(message.won)
       setIsMatchEnded(true)
       setIsMatchStarted(false)
-      debugger
+
+      clearInterval(timer)
+      setTimer(null)
+      setTime(new Date(0))
     })
 
     gamblingService.connection.on('BalanceUpdated', (message) => {
@@ -152,10 +201,6 @@ const Gambling = () => {
   }
 
   //#endregion
-
-  React.useEffect(() => {
-    hookOnEvents()
-  }, [])
 
   return (
     <div
@@ -213,17 +258,7 @@ const Gambling = () => {
           />
         </Flexed>
         <Flexed conditions={isMatchStarted}>
-          <Result
-            title="Started, Good Luck!"
-            // icon={
-            //   <Progress
-            //     type="circle"
-            //     percent={time}
-            //     steps={30}
-            //     format={(percent) => `${percent} Days`}
-            //   />
-            // }
-          />
+          <Result title={timeLeft / 1000} icon={<ClockCircleTwoTone />} />
         </Flexed>
         <Flexed conditions={isBetPlacedState || isMatchStarted || isMatchEnded}>
           <Card>
@@ -280,9 +315,10 @@ const Gambling = () => {
             />
           </Card>
         </Flexed>
-        <Flexed conditions={isMatchStarted}>
+        <Flexed
+          conditions={isMatchStarted}>
           <Progress
-            percent={currentPrice - openPrice}
+            percent={currentPrice - openPrice + threshold / 100 + 50}
             strokeColor={consts.colors.win}
             trailColor={consts.colors.loose}
             showInfo={false}
