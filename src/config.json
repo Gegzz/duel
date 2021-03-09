@@ -1,4 +1,4 @@
 {
-  "apiUrl": "https://localhost:5001",
+  "apiUrl": "https://cvision-ui.pumats.com",
   "iframeUrl": "http://localhost:4200"
 }
