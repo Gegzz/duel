@@ -8,12 +8,13 @@ import { HubConnectionState } from '@aspnet/signalr'
 const config = require('../config.json')
 
 const connection = new HubConnectionBuilder()
-  .withUrl('https://localhost:5001/kline', {
+  .withUrl(`${config.apiUrl}/kline`, {
     accessTokenFactory: () => accountService.userValue.jwtToken
   })
   .build()
 
 //#endregion
+
 
 const baseUrl = `${config.apiUrl}/api/bet`
 
