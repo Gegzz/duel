@@ -15,7 +15,6 @@ const connection = new HubConnectionBuilder()
 
 //#endregion
 
-
 const baseUrl = `${config.apiUrl}/api/bet`
 
 const placeBet = (amount, isRiseOrFall) => {
@@ -44,7 +43,15 @@ const placeBet = (amount, isRiseOrFall) => {
     })
 }
 
+const getGame = () => {
+  return fetchWrapper
+    .get(`${baseUrl}/getgame`)
+    .then(response => response)
+    .catch((err) => console.error(err))
+}
+
 export const gamblingService = {
   placeBet,
-  connection
+  connection,
+  getGame
 }

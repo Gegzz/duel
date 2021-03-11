@@ -27,6 +27,7 @@ import { gamblingService } from '../../services/gambling.service'
 import { accountService } from '../../services'
 import dayjs from 'dayjs'
 import useCountDown from 'react-countdown-hook'
+import { HubConnectionState } from '@aspnet/signalr'
 const config = require('../../config')
 
 const consts = {
@@ -92,14 +93,35 @@ const Gambling = () => {
     interval
   )
 
+  const [stateInitialized, setStateInitialized] = React.useState(false)
+
   // React.useEffect(() => {
   //   accountService.getBalance().then((balance) => setCurrentBalance(balance))
   // }, [])
 
   React.useEffect(() => {
-  //   gamblingService.connection.start().then(() => {
-      hookOnEvents()
-  //   })
+    //   gamblingService.connection.start().then(() => {
+    // gamblingService.getGame().then(response => {
+    //   if (response.state === 'NotFound') setStateInitialized(true)
+    //   if (response.state === 'Matched') {
+    //     MatchPending(message.opponentName)
+    //     setOpenPrice(response.game.startPrice)
+    //     setThreshold(message.threshold)
+    //     setTimeThreshold(message.unixThreshold)
+    //     setStartUnix(message.startUnix)
+
+    //     start()
+    //   }
+    // })
+    hookOnEvents()
+    if (gamblingService.connection.state !== HubConnectionState.Connected) {
+      gamblingService.connection.start().then(() => {
+        gamblingService.connection.invoke('RegisterConnection')
+      })
+    } else {
+      gamblingService.connection.invoke('RegisterConnection')
+    }
+    //   })
   }, [])
 
   const reset = () => {
@@ -120,11 +142,6 @@ const Gambling = () => {
     setOpenPrice(0)
     setThreshold(0)
     setCurrentPrice(0)
-  }
-
-  const BetPlaced = () => {
-    setIsEmptyState(false)
-    setIsBetPlacedState(true)
   }
 
   const MatchPending = (opponentName) => {
@@ -151,7 +168,12 @@ const Gambling = () => {
 
   const hookOnEvents = () => {
     gamblingService.connection.on('BetPlaced', (message) => {
-      BetPlaced()
+      setStateInitialized(true)
+      setIsEmptyState(false)
+      setIsBetPlacedState(true)
+      setBetAmount(message.amount)
+
+      setIsRiseOrFall(message.long ? true : false)
     })
 
     // gamblingService.connection.on('MatchPending', (message) => {
@@ -159,13 +181,24 @@ const Gambling = () => {
     // })
 
     gamblingService.connection.on('MatchStarted', (message) => {
+      setStateInitialized(true)
+
+      console.log(message)
+
+      setIsEmptyState(false)
+      setBetAmount(message.amount)
+      
       MatchPending(message.opponentName)
       setOpenPrice(message.startPrice)
       setThreshold(message.threshold)
       setTimeThreshold(message.unixThreshold)
       setStartUnix(message.startUnix)
 
-      start()
+      if (message.time) {
+        start(time)
+      } else {
+        start()
+      }
 
       // const timerRef = setInterval(() => {
       //   // if (time.getSeconds() < message.unixThreshold) {
@@ -186,6 +219,10 @@ const Gambling = () => {
     })
 
     gamblingService.connection.on('GameEnded', (message) => {
+      setStateInitialized(true)
+
+      setIsEmptyState(false)
+
       setWon(message.won)
       setIsMatchEnded(true)
       setIsMatchStarted(false)
@@ -198,9 +235,17 @@ const Gambling = () => {
     gamblingService.connection.on('BalanceUpdated', (message) => {
       setCurrentBalance(message.amount)
     })
+
+    gamblingService.connection.on('CLEAR', () => {
+      setStateInitialized(true)
+    })
   }
 
   //#endregion
+
+  if (!stateInitialized) {
+    return <Result icon={<Spin size="large" />} title="Connecting..." />
+  }
 
   return (
     <div
@@ -315,8 +360,7 @@ const Gambling = () => {
             />
           </Card>
         </Flexed>
-        <Flexed
-          conditions={isMatchStarted}>
+        <Flexed conditions={isMatchStarted}>
           <Progress
             percent={currentPrice - openPrice + threshold / 100 + 50}
             strokeColor={consts.colors.win}
