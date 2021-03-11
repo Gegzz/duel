@@ -84,10 +84,8 @@ const Gambling = () => {
 
   const [currentBalance, setCurrentBalance] = React.useState(0)
 
-  const [timer, setTimer] = React.useState(null)
-
   const [startDate, setStartDate] = React.useState(new Date(0))
-
+  
   const [timeLeft, { start, pause, resume, resets }] = useCountDown(
     initialTime,
     interval
@@ -174,6 +172,7 @@ const Gambling = () => {
       setBetAmount(message.amount)
 
       setIsRiseOrFall(message.long ? true : false)
+      setIsMatchEnded(false)
     })
 
     // gamblingService.connection.on('MatchPending', (message) => {
@@ -194,11 +193,13 @@ const Gambling = () => {
       setTimeThreshold(message.unixThreshold)
       setStartUnix(message.startUnix)
 
-      if (message.time) {
-        start(time)
-      } else {
-        start()
-      }
+      setIsRiseOrFall(message.isRiseOrFall)
+
+      let msg = message
+      
+      start(message.unixThreshold - msg.time)
+
+      
 
       // const timerRef = setInterval(() => {
       //   // if (time.getSeconds() < message.unixThreshold) {
@@ -227,8 +228,9 @@ const Gambling = () => {
       setIsMatchEnded(true)
       setIsMatchStarted(false)
 
-      clearInterval(timer)
-      setTimer(null)
+      debugger
+      setIsRiseOrFall(message.isRiseOrFall)
+
       setTime(new Date(0))
     })
 
@@ -303,7 +305,7 @@ const Gambling = () => {
           />
         </Flexed>
         <Flexed conditions={isMatchStarted}>
-          <Result title={timeLeft / 1000} icon={<ClockCircleTwoTone />} />
+          <Result title={Math.round(timeLeft / 1000)} icon={<ClockCircleTwoTone />} />
         </Flexed>
         <Flexed conditions={isBetPlacedState || isMatchStarted || isMatchEnded}>
           <Card>
