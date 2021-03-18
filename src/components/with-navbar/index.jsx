@@ -12,13 +12,13 @@ const WithNavbar = ({ content }) => {
 
     React.useEffect(() => { accountService.user.subscribe(x => setUser(x)) }, [])
 
-    return content
+    // return content
 
     return (
         <Switch>
             <Layout>
                 {user && <Navbar />}
-                <Content style={{ padding: '0 50px', marginTop: 64 }}>
+                <Content>
                     {content}
                 </Content>
                 {/* <Footer>

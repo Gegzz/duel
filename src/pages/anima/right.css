@@ -1,0 +1,12 @@
+.overlap-group {
+  align-items: flex-start;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  min-height: 724px;
+  padding: 32px 0;
+  width: 315px;
+  position: absolute;
+  right: 9px;
+}
