@@ -1,12 +1,78 @@
-.overlap-group {
+.right-container {
   align-items: flex-start;
-  background-size: 100% 100%;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   margin-left: 5px;
   min-height: 724px;
-  padding: 32px 0;
+  padding: 2rem 2rem;
   width: 315px;
-  position: absolute;
-  right: 9px;
+}
+.page-container .group-37 {
+  align-items: flex-end;
+  display: flex;
+  margin-left: 16px;
+  min-width: 193px;
+}
+.page-container .accountcircleblack24dp {
+  align-items: center;
+  background-size: 100% 100%;
+  display: flex;
+  height: 24px;
+  min-width: 24px;
+  padding: 0 2px;
+}
+.page-container .path-4 {
+  height: 20px;
+  width: 20px;
+}
+
+.flex-row-4 {
+  align-items: flex-end;
+  display: flex;
+  height: 144px;
+  margin-top: 41px;
+}
+
+.group-786 {
+  align-items: flex-start;
+  display: flex;
+  margin-bottom: 16px;
+  min-width: 284px;
+}
+
+.page-container .group-35 {
+  align-items: flex-end;
+  background-color: var(--mexican-red);
+  border-radius: 2px;
+  display: flex;
+  height: 72px;
+  justify-content: flex-end;
+  min-width: 138px;
+  padding: 19px 28px;
+}
+
+.page-container .surname-3 {
+  color: white;
+  font-family: 'Montserrat', Helvetica;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 21px;
+  min-height: 27px;
+  min-width: 79px;
+  white-space: nowrap;
+}
+
+
+.page-container .group-36 {
+  align-items: flex-end;
+  background-color: var(--jungle-green);
+  border-radius: 2px;
+  display: flex;
+  height: 72px;
+  justify-content: flex-end;
+  margin-left: 8px;
+  min-width: 138px;
+  padding: 19px 35px;
 }

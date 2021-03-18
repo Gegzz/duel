@@ -8,13 +8,20 @@ const Right = ({
   account_Balance_Wallet_Black_24Dp1,
   path6,
   price,
-  topLabelProps,
   surname3,
-  surname4
+  surname4,
+  inputText,
+  expand_More_Black_24Dp,
+  path1207,
+  inputText2,
+  topLabelProps,
+  topLabel2Props,
+  topLabel3Props,
+  brightness_4_black_24dpProps,
+  brightness_4_black_24dp2Props
 }) => (
-  <div
-    className="overlap-group"
-    style={{ backgroundImage: `url(${overlapGroup})` }}>
+  <div className="right-container">
+    {' '}
     <div className="group-37">
       <div
         className="accountcircleblack24dp"
@@ -54,7 +61,7 @@ const Right = ({
               style={{
                 backgroundImage: `url(${expand_More_Black_24Dp})`
               }}>
-              <img className="path-1207" src={path1207} />
+              <img alt="" className="path-1207" src={path1207} />
             </div>
           </div>
         </div>
@@ -104,118 +111,6 @@ const Right = ({
   </div>
 )
 
-function Group11(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
-
-  return (
-    <div className={`group-11 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-3 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
-
-function Group17(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
-
-  return (
-    <div className={`group-17 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-4 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
-
-function Group19(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
-
-  return (
-    <div className={`group-19 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-5 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
-
-function Group25(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
-
-  return (
-    <div className={`group-25 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-6 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
-
 function TopLabel(props) {
   const { label, className } = props
 
@@ -237,21 +132,6 @@ function Brightness_4_black_24dp(props) {
       className={`brightness4black24dp ${className || ''}`}
       style={{ backgroundImage: `url(${brightness_4_Black_24Dp})` }}>
       <img className="path-4-1" src={path430} />
-    </div>
-  )
-}
-
-function Group546(props) {
-  const { edit, close, className } = props
-
-  return (
-    <div className={`group-546 ${className || ''}`}>
-      <div className="group-545">
-        <div className="edit montserrat-bold-white-12px">{edit}</div>
-      </div>
-      <div className="group-544">
-        <div className="close montserrat-bold-white-12px">{close}</div>
-      </div>
     </div>
   )
 }
@@ -293,15 +173,14 @@ function Group533(props) {
   )
 }
 
-function Group536(props) {
-  const { line62, line63, group533Props, group5332Props, className } = props
+function Shield_black_24dp(props) {
+  const { shield_Black_24Dp, path2 } = props
 
   return (
-    <div className={`group-536 ${className || ''}`}>
-      <img className="line-62" src={line62} />
-      <Group533 {...group533Props} className="group-53" />
-      <img className="line-63" src={line63} />
-      <Group533 {...group5332Props} className="group-53" />
+    <div
+      className="shieldblack24dp"
+      style={{ backgroundImage: `url(${shield_Black_24Dp})` }}>
+      <img className="path-2" src={path2} />
     </div>
   )
 }

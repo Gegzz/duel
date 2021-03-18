@@ -14,9 +14,7 @@ export { Anima }
 function CryptoBattleChart(props) {
   const {
     header,
-    group5,
     winningStreak,
-    group6,
     points,
     path1,
     ranking,
@@ -46,32 +44,6 @@ function CryptoBattleChart(props) {
     inputText2,
     openPositions,
     line12,
-    order,
-    symbol,
-    size,
-    openPrice,
-    swap,
-    commision,
-    taxes,
-    closePrice,
-    price2,
-    tP,
-    profit,
-    symbol2,
-    phone,
-    audnzd,
-    surname5,
-    text1,
-    text2,
-    text5,
-    text6,
-    price3,
-    text3,
-    price4,
-    price5,
-    text4,
-    line61,
-    path498,
     text109,
     path433,
     overlapGroup4,
@@ -156,60 +128,11 @@ function CryptoBattleChart(props) {
     shield_black_24dpProps,
     group9Props,
     group92Props,
-    group11Props,
-    group93Props,
-    group94Props,
-    group95Props,
-    group96Props,
-    group97Props,
-    group17Props,
-    group112Props,
-    group19Props,
-    group192Props,
-    group172Props,
-    group193Props,
-    group194Props,
-    group195Props,
-    group25Props,
-    group252Props,
-    group253Props,
-    group254Props,
-    group255Props,
-    group256Props,
-    group257Props,
     topLabelProps,
     topLabel2Props,
     topLabel3Props,
     brightness_4_black_24dpProps,
-    brightness_4_black_24dp2Props,
-    group546Props,
-    group533Props,
-    group5462Props,
-    group536Props,
-    group5362Props,
-    group5363Props,
-    group5364Props,
-    group5365Props,
-    group5366Props,
-    group5367Props,
-    group5368Props,
-    group5463Props,
-    group5464Props,
-    group5465Props,
-    group5466Props,
-    group5467Props,
-    group5468Props,
-    group5469Props,
-    group54610Props,
-    group54611Props,
-    group54612Props,
-    group54613Props,
-    group54614Props,
-    group54615Props,
-    group54616Props,
-    group54617Props,
-    group54618Props
-  } = props
+    brightness_4_black_24dp2Props  } = props
 
   return (
     <PageContainer>
@@ -296,7 +219,26 @@ function CryptoBattleChart(props) {
           group3={group3}
           capture={capture}
         />
-        <Right />
+        <Right
+          account_Balance_Wallet_Black_24Dp1={account_Balance_Wallet_Black_24Dp1}
+          account_Circle_Black_24Dp={account_Circle_Black_24Dp}
+          brightness_4_black_24dp2Props={brightness_4_black_24dp2Props}
+          brightness_4_black_24dpProps={brightness_4_black_24dpProps}
+          expand_More_Black_24Dp={expand_More_Black_24Dp}
+          giorgioJaparidze={giorgioJaparidze}
+          inputText={inputText}
+          inputText2={inputText2}
+          overlapGroup={overlapGroup}
+          path1207={path1207}
+          path4={path4}
+          path6={path6}
+          price={price}
+          surname3={surname3}
+          surname4={surname4}
+          topLabel2Props={topLabel2Props}
+          topLabel3Props={topLabel3Props}
+          topLabelProps={topLabelProps}
+        />
       </div>
       <div className="flex-row-5">
         <div className="overlap-group1">
