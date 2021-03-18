@@ -12,6 +12,8 @@ const WithNavbar = ({ content }) => {
 
     React.useEffect(() => { accountService.user.subscribe(x => setUser(x)) }, [])
 
+    return content
+
     return (
         <Switch>
             <Layout>
