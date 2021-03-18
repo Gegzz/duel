@@ -1,33 +1,38 @@
 .ant-table-thead > tr > .ant-table-cell {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
 }
 
 .ant-table-tbody > tr > .ant-table-cell {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }
 
 .ant-table-tbody > tr > .ant-table-cell:last-child {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
 }
 
 .user-title span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 18px !important;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 18px !important;
 }
 
 .tab-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 18px !important;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 18px !important;
 }
 
 .money span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 21px !important;
-    color: #26A69A;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 21px !important;
+  color: #26a69a;
+}
+
+.chart-iframe {
+  width: 100%;
+  height: 100%;
 }

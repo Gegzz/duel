@@ -18,7 +18,7 @@ const App = () => {
       <Redirect exact from='/' to="/gambling" />
       <Route path="/account" component={Account} />
       <WithNavbar content={<>
-        <PrivateRoute exact path="/gambling" component={Anima} />
+        <PrivateRoute exact path="/gambling" component={Gambling} />
         <PrivateRoute path="/profile" component={Profile} />
         <PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />
       </>} />
