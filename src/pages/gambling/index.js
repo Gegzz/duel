@@ -15,7 +15,9 @@ import {
   Table,
   Typography,
   Switch,
-  Tabs
+  Tabs,
+  Image,
+  Divider
 } from 'antd'
 import React from 'react'
 import IFrame from 'react-iframe'
@@ -30,7 +32,9 @@ import {
   UserOutlined,
   SnippetsOutlined,
   SettingOutlined,
-  SettingFilled
+  SettingFilled,
+  LoadingOutlined,
+  StarFilled
 } from '@ant-design/icons'
 import getWindowDimensions from '../../helpers/getWindowDimensions'
 import Meta from 'antd/lib/card/Meta'
@@ -45,6 +49,16 @@ import './style.css'
 import consts from '../../consts'
 import Title from 'antd/lib/typography/Title'
 import { Option } from 'antd/lib/mentions'
+import MakeBetSvg from './makebet.svg'
+import Back from './battlebackground.svg'
+import WaitingForOpponentIm from './waitingforopponent.svg'
+import ShieldSvg from './shield.svg'
+import Itsamatchsvg from './itsamatch.svg'
+import Itsamatchbgsvg from './itsamatchbg.svg'
+import battlebgsvg from './battlebg.svg'
+import battle from './battle.svg'
+import playergreen from './playergreen.svg'
+import playerred from './playerred.svg'
 const config = require('../../config')
 
 const Flexed = (props) =>
@@ -280,11 +294,15 @@ const Gambling = () => {
           <Left />
         </Col>
         <Col flex={6} style={{ paddingBottom: 8, paddingTop: 8 }}>
-          <Tabs defaultActiveKey="1" onChange={(s) => console.log(s)}>
+          <Tabs
+            defaultActiveKey="2"
+            onChange={(s) => console.log(s)}
+            style={{ height: '100%' }}
+            type="card">
             <TabPane tab="Chart" key="1">
               <IFrame url={config.iframeUrl} className="chart-iframe" />
             </TabPane>
-            <TabPane tab="Tab 2" key="2">
+            <TabPane tab="Battle" key="2">
               <BattleTab />
             </TabPane>
           </Tabs>
@@ -589,8 +607,341 @@ const OrderHistory = () => (
   />
 )
 
-const BattleTab = () => <div style={{ width: '100%', height: '100%' }}>
-  adadadad
-</div>
+const BattleTab = () => (
+  <div style={{ width: '100%', height: '100%' }}>
+    {/* <MakeBet /> */}
+    {/* <WaitingForOpponent /> */}
+    {/* <ItsAMatch /> */}
+    <Battle />
+  </div>
+)
+
+const MakeBet = () => (
+  <div
+    style={{
+      alignItems: 'center',
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100%',
+      backgroundImage: `url(${Back})`,
+      backgroundSize: 'cover'
+    }}>
+    <Typography
+      style={{
+        fontFamily: 'Montserrat',
+        fontWeight: 500,
+        fontSize: 16,
+        color: 'white'
+      }}>
+      MAKE A BET BASED ON YOUR PREDICTION...
+    </Typography>
+    <img src={MakeBetSvg} height="130" width="450" alt="" />
+  </div>
+)
+
+const WaitingForOpponent = () => (
+  <div
+    style={{
+      alignItems: 'center',
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100%',
+      backgroundImage: `url(${WaitingForOpponentIm})`,
+      backgroundSize: 'cover'
+    }}>
+    <div
+      style={{
+        backdropFilter: 'blur(1rem)',
+        // backgroundColor: 'rgba(0,0,0,0.3)'
+        borderRadius: 38,
+        height: '82%',
+        width: '82%',
+        padding: 24
+      }}>
+      <Typography
+        style={{
+          fontFamily: 'Montserrat',
+          fontWeight: 500,
+          fontSize: 16,
+          color: 'white'
+        }}>
+        WAITING FOR OPPONENT, PLEASE WAIT...
+      </Typography>
+      <Spin
+        indicator={
+          <LoadingOutlined style={{ fontSize: 32, paddingTop: 24 }} spin />
+        }
+      />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-evenly'
+        }}>
+        <ShieldText text="Bet amount:" green value="100$" />
+        <ShieldText text="Bet amount:" green value="Rise" />
+      </div>
+    </div>
+  </div>
+)
+
+const ShieldText = ({ text, green, value, hideShield }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
+    <Typography
+      style={{
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 500,
+        fontFamily: 'Montserrat',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}>
+      {text}
+      <Typography
+        style={{
+          color: green ? 'var(--green)' : 'var(--red)',
+          fontSize: 28,
+          fontWeight: 800,
+          fontFamily: 'Montserrat',
+          paddingLeft: 8
+        }}>
+        {value}
+      </Typography>
+    </Typography>
+    {!hideShield && <img alt="" src={ShieldSvg} width="68" height="140" />}
+  </div>
+)
+
+const ItsAMatch = () => (
+  <div
+    style={{
+      alignItems: 'center',
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100%',
+      backgroundImage: `url(${Itsamatchbgsvg})`,
+      backgroundSize: 'cover'
+    }}>
+    <div
+      style={{
+        backdropFilter: 'blur(1rem)',
+        // backgroundColor: 'rgba(0,0,0,0.3)'
+        borderRadius: 38,
+        height: '82%',
+        width: '82%',
+        padding: 24
+      }}>
+      <Typography
+        style={{
+          fontFamily: 'Montserrat',
+          fontWeight: 500,
+          fontSize: 16,
+          color: 'white'
+        }}>
+        IT'S A MATCH! SEE YOUR OPPONENT...
+      </Typography>
+      <img
+        alt=""
+        src={Itsamatchsvg}
+        height="100"
+        width="150"
+        style={{ paddingTop: 16 }}
+      />
+      <Statistic
+        value="Lucy Morningstar"
+        className="user-title"
+        valueStyle={{ color: 'white' }}
+      />
+      <VerticalSpace />
+      <Statistic
+        value="Rating: 669"
+        prefix={<StarFilled />}
+        className="user-title"
+        valueStyle={{ color: 'white' }}
+      />
+      <VerticalSpace />
+      <LosesWinsText win value="999" />
+      <LosesWinsText value="666" />
+    </div>
+  </div>
+)
+
+const Battle = () => (
+  <div
+    style={{
+      alignItems: 'center',
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100%',
+      backgroundImage: `url(${battlebgsvg})`,
+      backgroundSize: 'cover'
+    }}>
+    <div
+      style={{
+        backdropFilter: 'blur(1rem)',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        borderRadius: 38,
+        height: '82%',
+        width: '82%',
+        padding: 24
+      }}>
+      <Typography
+        style={{
+          fontFamily: 'Montserrat',
+          fontWeight: 500,
+          fontSize: 16,
+          color: 'white'
+        }}>
+        IT'S A MATCH! SEE YOUR OPPONENT...
+      </Typography>
+      <img
+        alt=""
+        src={battle}
+        height="80"
+        width="120"
+        style={{ paddingTop: 16 }}
+      />
+      <Statistic
+        value="54 seconds remaining"
+        className="user-title"
+        valueStyle={{ color: 'white' }}
+      />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+        <div style={{ paddingRight: 8 }}>
+          <img alt="" src={playerred} />
+          <Typography
+            style={{
+              fontFamily: 'Montserrat',
+              fontSize: 14,
+              fontWeight: 500,
+              color: 'white'
+            }}>
+            Lucy Morningstar
+          </Typography>
+        </div>
+        <Progress
+          percent={50}
+          strokeColor="var(--red)"
+          trailColor="var(--green)"
+          showInfo={false}
+          strokeLinecap="square"
+          strokeWidth={12}
+        />
+        <div style={{ paddingLeft: 8 }}>
+          <img alt="" src={playergreen} />
+          <Typography
+            style={{
+              fontFamily: 'Montserrat',
+              fontSize: 14,
+              fontWeight: 500,
+              color: 'white'
+            }}>
+            Giorgio Japaridze
+          </Typography>
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          flexDirection: 'row'
+        }}>
+        <FourText text="Bet amount: " value="100$" green hideShield />
+        <FourText text="Open price: " value="55,156.69" green hideShield />
+        <FourText text="Prediction: " value="Rise" green hideShield />
+        <FourText text="Current price: " value="55,156.69" hideShield />
+      </div>
+    </div>
+  </div>
+)
+
+const LosesWinsText = ({ win, value }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
+    <Typography
+      style={{
+        color: win ? 'var(--green)' : 'var(--red)',
+        fontSize: 18,
+        fontWeight: 500,
+        fontFamily: 'Montserrat',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}>
+      {win ? 'Wins: ' : 'Loses: '}
+      <Typography
+        style={{
+          color: 'white',
+          fontSize: 18,
+          fontWeight: 500,
+          fontFamily: 'Montserrat',
+          paddingLeft: 8
+        }}>
+        {value}
+      </Typography>
+    </Typography>
+  </div>
+)
+
+const FourText = ({ text, green, value, hideShield }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
+    <Typography
+      style={{
+        color: 'white',
+        fontSize: 10,
+        fontWeight: 500,
+        fontFamily: 'Montserrat',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}>
+      {text}
+      <Typography
+        style={{
+          color: green ? 'var(--green)' : 'var(--red)',
+          fontSize: 20,
+          fontWeight: 800,
+          fontFamily: 'Montserrat',
+          paddingLeft: 8
+        }}>
+        {value}
+      </Typography>
+    </Typography>
+    {!hideShield && <img alt="" src={ShieldSvg} width="68" height="140" />}
+  </div>
+)
 
 export { Gambling }

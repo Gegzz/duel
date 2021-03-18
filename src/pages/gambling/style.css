@@ -51,6 +51,10 @@
   border: 1px solid var(--alto);
 }
 
+.ant-tabs-content {
+  height: 100%;
+}
+
 :root {
   --alto: rgba(217, 218, 219, 1);
   --black: rgba(0, 0, 0, 0.6);
