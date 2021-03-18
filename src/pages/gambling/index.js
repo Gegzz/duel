@@ -14,7 +14,8 @@ import {
   Statistic,
   Table,
   Typography,
-  Switch
+  Switch,
+  Tabs
 } from 'antd'
 import React from 'react'
 import IFrame from 'react-iframe'
@@ -70,6 +71,8 @@ const ignoreHorizontalMargins = {
   marginLeft: -55,
   marginRight: -50
 }
+
+const { TabPane } = Tabs
 
 const Gambling = () => {
   const [isEmptyState, setIsEmptyState] = React.useState(true)
@@ -277,7 +280,14 @@ const Gambling = () => {
           <Left />
         </Col>
         <Col flex={6} style={{ paddingBottom: 8, paddingTop: 8 }}>
-          <IFrame url={config.iframeUrl} className="chart-iframe" />
+          <Tabs defaultActiveKey="1" onChange={(s) => console.log(s)}>
+            <TabPane tab="Chart" key="1">
+              <IFrame url={config.iframeUrl} className="chart-iframe" />
+            </TabPane>
+            <TabPane tab="Tab 2" key="2">
+              <BattleTab />
+            </TabPane>
+          </Tabs>
         </Col>
         <Col flex={1} style={{ padding: 8 }}>
           <Card
@@ -578,5 +588,9 @@ const OrderHistory = () => (
     title={() => <Typography>Order history</Typography>}
   />
 )
+
+const BattleTab = () => <div style={{ width: '100%', height: '100%' }}>
+  adadadad
+</div>
 
 export { Gambling }
