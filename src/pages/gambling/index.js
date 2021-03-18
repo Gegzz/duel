@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  Checkbox,
   Col,
   Descriptions,
   InputNumber,
@@ -12,7 +13,8 @@ import {
   Spin,
   Statistic,
   Table,
-  Typography
+  Typography,
+  Switch
 } from 'antd'
 import React from 'react'
 import IFrame from 'react-iframe'
@@ -25,7 +27,9 @@ import {
   StopTwoTone,
   ClockCircleTwoTone,
   UserOutlined,
-  SnippetsOutlined
+  SnippetsOutlined,
+  SettingOutlined,
+  SettingFilled
 } from '@ant-design/icons'
 import getWindowDimensions from '../../helpers/getWindowDimensions'
 import Meta from 'antd/lib/card/Meta'
@@ -263,12 +267,19 @@ const Gambling = () => {
     <div>
       <Row>
         <Col flex={1}>
+          <div className="header-container border-1px-alto">
+            <div className="header">HEADER</div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col flex={1} style={{ padding: 8 }}>
           <Left />
         </Col>
-        <Col flex={6}>
+        <Col flex={6} style={{ paddingBottom: 8, paddingTop: 8 }}>
           <IFrame url={config.iframeUrl} className="chart-iframe" />
         </Col>
-        <Col flex={1}>
+        <Col flex={1} style={{ padding: 8 }}>
           <Card
             bodyStyle={{
               display: 'flex',
@@ -280,11 +291,13 @@ const Gambling = () => {
               prefix={<UserOutlined />}
               className="user-title"
             />
+            <VerticalSpace />
             <Statistic
               value={`$ ${'254,300.50'}`}
               prefix={<SnippetsOutlined />}
               className="money"
             />
+            <VerticalSpace />
             <Select
               onChange={handleChange}
               size="large"
@@ -292,6 +305,7 @@ const Gambling = () => {
               <Option value="btc">BTC</Option>
               <Option value="eth">ETH</Option>
             </Select>
+            <VerticalSpace />
             <InputNumber
               formatter={(value) =>
                 `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -307,6 +321,13 @@ const Gambling = () => {
               style={{ width: '100%' }}
               placeholder="Insert amount (ex. 100$)"
             />
+            <VerticalSpace />
+            <BetButtons>
+              <BetButton short title="SHORT" />
+              <BetButton title="LONG" />
+            </BetButtons>
+            <VerticalSpace />
+            <Theme />
           </Card>
         </Col>
       </Row>
@@ -319,6 +340,8 @@ const Gambling = () => {
   )
 }
 
+const VerticalSpace = () => <div style={{ marginTop: 20 }}></div>
+
 const textsWin = ['Impressive, You Won!']
 
 const getWinningText = () =>
@@ -330,14 +353,41 @@ const BetButton = ({ title, short, ...props }) => (
       width: '50%',
       borderWidth: 0,
       borderRadius: 0,
-      backgroundColor: short ? consts.colors.loose : consts.colors.win,
-      height: 50
+      backgroundColor: short ? 'var(--red)' : 'var(--green)',
+      height: 56,
+      fontWeight: 800,
+      fontFamily: 'Montserrat',
+      fontSize: 21
     }}
     type="primary"
     size="large"
     {...props}>
     {title}
   </Button>
+)
+
+const Theme = () => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly'
+    }}>
+    <SettingOutlined style={{ fontSize: 24 }} />
+    <Switch style={{ backgroundColor: 'var(--green)' }} />
+    <SettingFilled style={{ fontSize: 24 }} />
+  </div>
+)
+
+const BetButtons = ({ children }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    }}>
+    {children}
+  </div>
 )
 
 const dataSource = [
@@ -364,6 +414,18 @@ const dataSource = [
     ranking: 4,
     username: 'short username',
     winningStreak: 39
+  },
+  {
+    key: '4',
+    ranking: 4,
+    username: 'short username',
+    winningStreak: 39
+  },
+  {
+    key: '4',
+    ranking: 4,
+    username: 'short username',
+    winningStreak: 39
   }
 ]
 
@@ -376,17 +438,20 @@ const columns = [
       <Avatar style={{ backgroundColor: 'transparent', width: 48 }}>
         <Shield number={ranking} />
       </Avatar>
-    )
+    ),
+    width: 20
   },
   {
     title: 'Username',
     dataIndex: 'username',
-    key: 'username'
+    key: 'username',
+    width: 20
   },
   {
     title: 'Winning Streak',
     dataIndex: 'winningStreak',
-    key: 'winningStreak'
+    key: 'winningStreak',
+    width: 20
   }
 ]
 
@@ -407,13 +472,109 @@ const Left = () => (
       <Typography className="tab-title">Winning Streak</Typography>
     )}
     pagination={false}
+    size="small"
   />
 )
 
+const historyDataSource = [
+  {
+    battleId: 2485752,
+    currency: 'BTC',
+    bet: 'LONG',
+    ammount: 50,
+    startPrice: 1.23324,
+    endPrice: 1.23232,
+    profit: 0
+  },
+  {
+    battleId: 2485752,
+    currency: 'BTC',
+    bet: 'LONG',
+    ammount: 50,
+    startPrice: 1.23324,
+    endPrice: 1.23232,
+    profit: 0
+  },
+  {
+    battleId: 2485752,
+    currency: 'BTC',
+    bet: 'LONG',
+    ammount: 50,
+    startPrice: 1.23324,
+    endPrice: 1.23232,
+    profit: 0
+  },
+  {
+    battleId: 2485752,
+    currency: 'BTC',
+    bet: 'LONG',
+    ammount: 50,
+    startPrice: 1.23324,
+    endPrice: 1.23232,
+    profit: 0
+  },
+  {
+    battleId: 2485752,
+    currency: 'BTC',
+    bet: 'LONG',
+    ammount: 50,
+    startPrice: 1.23324,
+    endPrice: 1.23232,
+    profit: 0
+  }
+]
+
+const historyColumns = [
+  {
+    title: 'BATTLE ID',
+    dataIndex: 'battleId',
+    key: 'battleId'
+  },
+  {
+    title: 'CURRENCY',
+    dataIndex: 'currency',
+    key: 'currency'
+  },
+  {
+    title: 'BET',
+    dataIndex: 'bet',
+    key: 'bet',
+    render: (bet) => (
+      <span
+        style={{
+          color: bet === 'LONG' ? 'var(--green)' : 'var(--red)',
+          fontWeight: 600
+        }}>
+        {bet}
+      </span>
+    )
+  },
+  {
+    title: 'AMOUNT',
+    dataIndex: 'amount',
+    key: 'amount'
+  },
+  {
+    title: 'START PRICE',
+    dataIndex: 'startPrice',
+    key: 'startPrice'
+  },
+  {
+    title: 'END PRICE',
+    dataIndex: 'endPrice',
+    key: 'endPrice'
+  },
+  {
+    title: 'PROFIT',
+    dataIndex: 'profit',
+    key: 'profit'
+  }
+]
+
 const OrderHistory = () => (
   <Table
-    dataSource={dataSource}
-    columns={columns}
+    dataSource={historyDataSource}
+    columns={historyColumns}
     title={() => <Typography>Order history</Typography>}
   />
 )
