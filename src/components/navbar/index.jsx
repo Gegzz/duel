@@ -30,6 +30,8 @@ const Navbar = () => {
         })
     }, [])
 
+    return <React.Fragment></React.Fragment>
+
     return (
         <Menu onClick={e => setState({ current: e.key })} selectedKeys={[state.current]} style={{ padding: '0 50px' }} mode="horizontal">
             <Item key={nav.apps} icon={<UnorderedListOutlined />}>

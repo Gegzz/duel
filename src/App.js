@@ -4,7 +4,7 @@ import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
 import { Role } from './helpers'
 import { accountService } from './services'
 import { PrivateRoute, Profile, WithNavbar } from './components'
-import { Account, Admin, Gambling, Home } from './pages'
+import { Account, Admin, Anima, Gambling, Home } from './pages'
 
 const App = () => {
   const { pathname } = useLocation()
@@ -18,7 +18,7 @@ const App = () => {
       <Redirect exact from='/' to="/gambling" />
       <Route path="/account" component={Account} />
       <WithNavbar content={<>
-        <PrivateRoute exact path="/gambling" component={Gambling} />
+        <PrivateRoute exact path="/gambling" component={Anima} />
         <PrivateRoute path="/profile" component={Profile} />
         <PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />
       </>} />
