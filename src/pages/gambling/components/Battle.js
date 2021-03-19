@@ -1,9 +1,9 @@
 import { FourText } from '.'
-import battlebgsvg from './battlebg.svg'
-import battle from './battle.svg'
-import playergreen from './playergreen.svg'
-import playerred from './playerred.svg'
-import { Statistic, Typography } from 'antd'
+import battlebgsvg from './assets/battlebg.svg'
+import battle from './assets/battle.svg'
+import playergreen from './assets/playergreen.svg'
+import playerred from './assets/playerred.svg'
+import { Progress, Statistic, Typography } from 'antd'
 
 const Battle = () => (
   <div

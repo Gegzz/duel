@@ -49,15 +49,15 @@ import './style.css'
 import consts from '../../consts'
 import Title from 'antd/lib/typography/Title'
 import { Option } from 'antd/lib/mentions'
-import MakeBetSvg from './makebet.svg'
-import Back from './battlebackground.svg'
-import WaitingForOpponentIm from './waitingforopponent.svg'
-import ShieldSvg from './shield.svg'
-import Itsamatchsvg from './itsamatch.svg'
-import Itsamatchbgsvg from './itsamatchbg.svg'
-import finishsvg from './finish.svg'
-import skull from './skull.svg'
-import { BetButton, Finish, FourText, VerticalSpace } from './components'
+import {
+  BattleTab,
+  BetButton,
+  BetButtons,
+  OrderHistory,
+  Theme,
+  VerticalSpace,
+  WinningStreak
+} from './components'
 const config = require('../../config')
 
 const Flexed = (props) =>
@@ -123,9 +123,13 @@ const Gambling = () => {
 
   const [stateInitialized, setStateInitialized] = React.useState(false)
 
-  // React.useEffect(() => {
-  //   accountService.getBalance().then((balance) => setCurrentBalance(balance))
-  // }, [])
+  const [username, setUsername] = React.useState(
+    `${accountService.userValue?.firstName} ${accountService.userValue?.lastName}`
+  )
+
+  React.useEffect(() => {
+    accountService.getBalance().then((balance) => setCurrentBalance(balance))
+  }, [])
 
   React.useEffect(() => {
     //   gamblingService.connection.start().then(() => {
@@ -290,7 +294,7 @@ const Gambling = () => {
       </Row>
       <Row>
         <Col flex={1} style={{ padding: 8 }}>
-          <Left />
+          <WinningStreak />
         </Col>
         <Col flex={6} style={{ paddingBottom: 8, paddingTop: 8 }}>
           <Tabs
@@ -302,7 +306,12 @@ const Gambling = () => {
               <IFrame url={config.iframeUrl} className="chart-iframe" />
             </TabPane>
             <TabPane tab="Battle" key="2">
-              <BattleTab />
+              <BattleTab
+                isEmptyState={isEmptyState}
+                isBetPlacedState={isBetPlacedState}
+                isMatchStarted={isMatchStarted}
+                isMatchEnded={isMatchEnded}
+              />
             </TabPane>
           </Tabs>
         </Col>
@@ -314,13 +323,13 @@ const Gambling = () => {
               justifyContent: 'flex-start'
             }}>
             <Statistic
-              value="Giorgio Japaridze"
+              value={username}
               prefix={<UserOutlined />}
               className="user-title"
             />
             <VerticalSpace />
             <Statistic
-              value={`$ ${'254,300.50'}`}
+              value={`$ ${currentBalance}`}
               prefix={<SnippetsOutlined />}
               className="money"
             />
@@ -349,9 +358,14 @@ const Gambling = () => {
               placeholder="Insert amount (ex. 100$)"
             />
             <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
             <BetButtons>
-              <BetButton short title="SHORT" />
-              <BetButton title="LONG" />
+              <BetButton onClick={ClickShort} short title="SHORT" />
+              <BetButton onClick={ClickLong} title="LONG" />
             </BetButtons>
             <VerticalSpace />
             <Theme />
@@ -371,327 +385,5 @@ const textsWin = ['Impressive, You Won!']
 
 const getWinningText = () =>
   textsWin[Math.floor(Math.random() * textsWin.length)]
-
-const BetButtons = ({ children }) => (
-  <div
-    style={{
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    }}>
-    {children}
-  </div>
-)
-
-const dataSource = [
-  {
-    key: '1',
-    ranking: 1,
-    username: 'Long username',
-    winningStreak: 40
-  },
-  {
-    key: '2',
-    ranking: 2,
-    username: 'short username',
-    winningStreak: 39
-  },
-  {
-    key: '3',
-    ranking: 3,
-    username: 'short username',
-    winningStreak: 39
-  },
-  {
-    key: '4',
-    ranking: 4,
-    username: 'short username',
-    winningStreak: 39
-  },
-  {
-    key: '4',
-    ranking: 4,
-    username: 'short username',
-    winningStreak: 39
-  },
-  {
-    key: '4',
-    ranking: 4,
-    username: 'short username',
-    winningStreak: 39
-  }
-]
-
-const columns = [
-  {
-    title: 'Ranking',
-    dataIndex: 'ranking',
-    key: 'ranking',
-    render: (ranking) => (
-      <Avatar style={{ backgroundColor: 'transparent', width: 48 }}>
-        <Shield number={ranking} />
-      </Avatar>
-    ),
-    width: 20
-  },
-  {
-    title: 'Username',
-    dataIndex: 'username',
-    key: 'username',
-    width: 20
-  },
-  {
-    title: 'Winning Streak',
-    dataIndex: 'winningStreak',
-    key: 'winningStreak',
-    width: 20
-  }
-]
-
-const Left = () => (
-  <Table
-    dataSource={dataSource}
-    columns={columns}
-    title={() => (
-      // <Button
-      //   size="large"
-      //   type="primary"
-      //   style={{
-      //     backgroundColor: consts.colors.primary,
-      //     borderColor: consts.colors.primary
-      //   }}>
-      //   Winning Streak
-      // </Button>
-      <Typography className="tab-title">Winning Streak</Typography>
-    )}
-    pagination={false}
-    size="small"
-  />
-)
-
-const historyDataSource = [
-  {
-    battleId: 2485752,
-    currency: 'BTC',
-    bet: 'LONG',
-    ammount: 50,
-    startPrice: 1.23324,
-    endPrice: 1.23232,
-    profit: 0
-  },
-  {
-    battleId: 2485752,
-    currency: 'BTC',
-    bet: 'LONG',
-    ammount: 50,
-    startPrice: 1.23324,
-    endPrice: 1.23232,
-    profit: 0
-  },
-  {
-    battleId: 2485752,
-    currency: 'BTC',
-    bet: 'LONG',
-    ammount: 50,
-    startPrice: 1.23324,
-    endPrice: 1.23232,
-    profit: 0
-  },
-  {
-    battleId: 2485752,
-    currency: 'BTC',
-    bet: 'LONG',
-    ammount: 50,
-    startPrice: 1.23324,
-    endPrice: 1.23232,
-    profit: 0
-  },
-  {
-    battleId: 2485752,
-    currency: 'BTC',
-    bet: 'LONG',
-    ammount: 50,
-    startPrice: 1.23324,
-    endPrice: 1.23232,
-    profit: 0
-  }
-]
-
-const historyColumns = [
-  {
-    title: 'BATTLE ID',
-    dataIndex: 'battleId',
-    key: 'battleId'
-  },
-  {
-    title: 'CURRENCY',
-    dataIndex: 'currency',
-    key: 'currency'
-  },
-  {
-    title: 'BET',
-    dataIndex: 'bet',
-    key: 'bet',
-    render: (bet) => (
-      <span
-        style={{
-          color: bet === 'LONG' ? 'var(--green)' : 'var(--red)',
-          fontWeight: 600
-        }}>
-        {bet}
-      </span>
-    )
-  },
-  {
-    title: 'AMOUNT',
-    dataIndex: 'amount',
-    key: 'amount'
-  },
-  {
-    title: 'START PRICE',
-    dataIndex: 'startPrice',
-    key: 'startPrice'
-  },
-  {
-    title: 'END PRICE',
-    dataIndex: 'endPrice',
-    key: 'endPrice'
-  },
-  {
-    title: 'PROFIT',
-    dataIndex: 'profit',
-    key: 'profit'
-  }
-]
-
-const OrderHistory = () => (
-  <Table
-    dataSource={historyDataSource}
-    columns={historyColumns}
-    title={() => <Typography>Order history</Typography>}
-  />
-)
-
-const BattleTab = () => (
-  <div style={{ width: '100%', height: '100%' }}>
-    {/* <MakeBet /> */}
-    {/* <WaitingForOpponent /> */}
-    {/* <ItsAMatch /> */}
-    {/* <Battle /> */}
-    <Finish />
-  </div>
-)
-
-const MakeBet = () => (
-  <div
-    style={{
-      alignItems: 'center',
-      textAlign: 'center',
-      verticalAlign: 'middle',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      height: '100%',
-      backgroundImage: `url(${Back})`,
-      backgroundSize: 'cover'
-    }}>
-    <Typography
-      style={{
-        fontFamily: 'Montserrat',
-        fontWeight: 500,
-        fontSize: 16,
-        color: 'white'
-      }}>
-      MAKE A BET BASED ON YOUR PREDICTION...
-    </Typography>
-    <img src={MakeBetSvg} height="130" width="450" alt="" />
-  </div>
-)
-
-const WaitingForOpponent = () => (
-  <div
-    style={{
-      alignItems: 'center',
-      textAlign: 'center',
-      verticalAlign: 'middle',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      height: '100%',
-      backgroundImage: `url(${WaitingForOpponentIm})`,
-      backgroundSize: 'cover'
-    }}>
-    <div
-      style={{
-        backdropFilter: 'blur(1rem)',
-        // backgroundColor: 'rgba(0,0,0,0.3)'
-        borderRadius: 38,
-        height: '82%',
-        width: '82%',
-        padding: 24
-      }}>
-      <Typography
-        style={{
-          fontFamily: 'Montserrat',
-          fontWeight: 500,
-          fontSize: 16,
-          color: 'white'
-        }}>
-        WAITING FOR OPPONENT, PLEASE WAIT...
-      </Typography>
-      <Spin
-        indicator={
-          <LoadingOutlined style={{ fontSize: 32, paddingTop: 24 }} spin />
-        }
-      />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-evenly'
-        }}>
-        <ShieldText text="Bet amount:" green value="100$" />
-        <ShieldText text="Bet amount:" green value="Rise" />
-      </div>
-    </div>
-  </div>
-)
-
-const ShieldText = ({ text, green, value, hideShield }) => (
-  <div
-    style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
-    <Typography
-      style={{
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 500,
-        fontFamily: 'Montserrat',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center'
-      }}>
-      {text}
-      <Typography
-        style={{
-          color: green ? 'var(--green)' : 'var(--red)',
-          fontSize: 28,
-          fontWeight: 800,
-          fontFamily: 'Montserrat',
-          paddingLeft: 8
-        }}>
-        {value}
-      </Typography>
-    </Typography>
-    {!hideShield && <img alt="" src={ShieldSvg} width="68" height="140" />}
-  </div>
-)
-
-
-
-
 
 export { Gambling }

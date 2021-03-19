@@ -1,5 +1,9 @@
-import { Typography } from "antd"
-import { VerticalSpace } from "."
+import { Typography } from 'antd'
+import { VerticalSpace } from '.'
+import { FourText } from './FourText'
+import finishsvg from './assets/finish.svg'
+import skull from './assets/skull.svg'
+import { BetButton } from '.'
 
 const Finish = () => (
   <div

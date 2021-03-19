@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 
-const BetButton = ({ title, short, ...props }) => (
+const BetButton = ({ title, short, onClick, ...props }) => (
   <Button
     style={{
       width: '50%',
@@ -14,7 +14,8 @@ const BetButton = ({ title, short, ...props }) => (
     }}
     type="primary"
     size="large"
-    {...props}>
+    {...props}
+    onClick={onClick}>
     {title}
   </Button>
 )

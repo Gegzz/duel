@@ -1,4 +1,10 @@
-import { VerticalSpace } from "."
+import { Statistic, Typography } from 'antd'
+import { LosesWinsText, VerticalSpace } from '.'
+import Itsamatchsvg from './assets/itsamatch.svg'
+import Itsamatchbgsvg from './assets/itsamatchbg.svg'
+import {
+  StarFilled
+} from '@ant-design/icons'
 
 const ItsAMatch = () => (
   <div
