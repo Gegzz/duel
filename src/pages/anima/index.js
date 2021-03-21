@@ -1,4 +1,8 @@
 import React from 'react'
+import { Header } from './Header'
+import { PageContainer } from './PageContainer'
+import { Tabs } from './ScreenSwitch'
+import { Right } from './Right'
 import './style.css'
 
 function Anima() {
@@ -10,9 +14,7 @@ export { Anima }
 function CryptoBattleChart(props) {
   const {
     header,
-    group5,
     winningStreak,
-    group6,
     points,
     path1,
     ranking,
@@ -42,32 +44,6 @@ function CryptoBattleChart(props) {
     inputText2,
     openPositions,
     line12,
-    order,
-    symbol,
-    size,
-    openPrice,
-    swap,
-    commision,
-    taxes,
-    closePrice,
-    price2,
-    tP,
-    profit,
-    symbol2,
-    phone,
-    audnzd,
-    surname5,
-    text1,
-    text2,
-    text5,
-    text6,
-    price3,
-    text3,
-    price4,
-    price5,
-    text4,
-    line61,
-    path498,
     text109,
     path433,
     overlapGroup4,
@@ -152,77 +128,22 @@ function CryptoBattleChart(props) {
     shield_black_24dpProps,
     group9Props,
     group92Props,
-    group11Props,
-    group93Props,
-    group94Props,
-    group95Props,
-    group96Props,
-    group97Props,
-    group17Props,
-    group112Props,
-    group19Props,
-    group192Props,
-    group172Props,
-    group193Props,
-    group194Props,
-    group195Props,
-    group25Props,
-    group252Props,
-    group253Props,
-    group254Props,
-    group255Props,
-    group256Props,
-    group257Props,
     topLabelProps,
     topLabel2Props,
     topLabel3Props,
     brightness_4_black_24dpProps,
-    brightness_4_black_24dp2Props,
-    group546Props,
-    group533Props,
-    group5462Props,
-    group536Props,
-    group5362Props,
-    group5363Props,
-    group5364Props,
-    group5365Props,
-    group5366Props,
-    group5367Props,
-    group5368Props,
-    group5463Props,
-    group5464Props,
-    group5465Props,
-    group5466Props,
-    group5467Props,
-    group5468Props,
-    group5469Props,
-    group54610Props,
-    group54611Props,
-    group54612Props,
-    group54613Props,
-    group54614Props,
-    group54615Props,
-    group54616Props,
-    group54617Props,
-    group54618Props
-  } = props
+    brightness_4_black_24dp2Props  } = props
 
   return (
-    <div className="crypto-battle-chart">
-      <div className="group-1 border-1px-alto">
-        <div className="header">{header}</div>
-      </div>
+    <PageContainer>
+      <Header header={header} />
       <div className="flex-row">
         <div className="overlap-group2 border-1px-alto">
           <div className="flex-row-1">
-            <div
-              className="group-5"
-              style={{ backgroundImage: `url(${group5})` }}>
+            <div className="left-tab-button active">
               <div className="winning-streak">{winningStreak}</div>
             </div>
-            <div
-              className="group-6"
-              style={{ backgroundImage: `url(${group6})` }}>
+            <div className="left-tab-button">
               <div className="points montserrat-normal-chicago-12px">
                 {points}
               </div>
@@ -285,312 +206,39 @@ function CryptoBattleChart(props) {
                       }
                       className="group-10"
                     />
-                    <Group11
-                      number={group11Props.number}
-                      shortUsername={group11Props.shortUsername}
-                      number2={group11Props.number2}
-                      shield_black_24dpProps={
-                        group11Props.shield_black_24dpProps
-                      }
-                    />
-                    <Group9
-                      number={group93Props.number}
-                      shortUsername={group93Props.shortUsername}
-                      number2={group93Props.number2}
-                      shield_black_24dpProps={
-                        group93Props.shield_black_24dpProps
-                      }
-                      className="group-12"
-                    />
-                    <Group9
-                      number={group94Props.number}
-                      shortUsername={group94Props.shortUsername}
-                      number2={group94Props.number2}
-                      shield_black_24dpProps={
-                        group94Props.shield_black_24dpProps
-                      }
-                      className="group-13"
-                    />
-                    <Group9
-                      number={group95Props.number}
-                      shortUsername={group95Props.shortUsername}
-                      number2={group95Props.number2}
-                      shield_black_24dpProps={
-                        group95Props.shield_black_24dpProps
-                      }
-                      className="group-14"
-                    />
-                    <Group9
-                      number={group96Props.number}
-                      shortUsername={group96Props.shortUsername}
-                      number2={group96Props.number2}
-                      shield_black_24dpProps={
-                        group96Props.shield_black_24dpProps
-                      }
-                      className="group-15"
-                    />
-                    <Group9
-                      number={group97Props.number}
-                      shortUsername={group97Props.shortUsername}
-                      number2={group97Props.number2}
-                      shield_black_24dpProps={
-                        group97Props.shield_black_24dpProps
-                      }
-                      className="group-16"
-                    />
-                    <Group17
-                      number={group17Props.number}
-                      shortUsername={group17Props.shortUsername}
-                      number2={group17Props.number2}
-                      shield_black_24dpProps={
-                        group17Props.shield_black_24dpProps
-                      }
-                    />
-                    <Group11
-                      number={group112Props.number}
-                      shortUsername={group112Props.shortUsername}
-                      number2={group112Props.number2}
-                      shield_black_24dpProps={
-                        group112Props.shield_black_24dpProps
-                      }
-                      className="group-18"
-                    />
-                    <Group19
-                      number={group19Props.number}
-                      shortUsername={group19Props.shortUsername}
-                      number2={group19Props.number2}
-                      shield_black_24dpProps={
-                        group19Props.shield_black_24dpProps
-                      }
-                    />
-                    <Group19
-                      number={group192Props.number}
-                      shortUsername={group192Props.shortUsername}
-                      number2={group192Props.number2}
-                      shield_black_24dpProps={
-                        group192Props.shield_black_24dpProps
-                      }
-                      className="group-20"
-                    />
-                    <Group17
-                      number={group172Props.number}
-                      shortUsername={group172Props.shortUsername}
-                      number2={group172Props.number2}
-                      shield_black_24dpProps={
-                        group172Props.shield_black_24dpProps
-                      }
-                      className="group-21"
-                    />
-                    <Group19
-                      number={group193Props.number}
-                      shortUsername={group193Props.shortUsername}
-                      number2={group193Props.number2}
-                      shield_black_24dpProps={
-                        group193Props.shield_black_24dpProps
-                      }
-                      className="group-22"
-                    />
-                    <Group19
-                      number={group194Props.number}
-                      shortUsername={group194Props.shortUsername}
-                      number2={group194Props.number2}
-                      shield_black_24dpProps={
-                        group194Props.shield_black_24dpProps
-                      }
-                      className="group-23"
-                    />
-                    <Group19
-                      number={group195Props.number}
-                      shortUsername={group195Props.shortUsername}
-                      number2={group195Props.number2}
-                      shield_black_24dpProps={
-                        group195Props.shield_black_24dpProps
-                      }
-                      className="group-24"
-                    />
-                    <Group25
-                      number={group25Props.number}
-                      shortUsername={group25Props.shortUsername}
-                      number2={group25Props.number2}
-                      shield_black_24dpProps={
-                        group25Props.shield_black_24dpProps
-                      }
-                    />
-                    <Group25
-                      number={group252Props.number}
-                      shortUsername={group252Props.shortUsername}
-                      number2={group252Props.number2}
-                      shield_black_24dpProps={
-                        group252Props.shield_black_24dpProps
-                      }
-                      className="group-26"
-                    />
-                    <Group25
-                      number={group253Props.number}
-                      shortUsername={group253Props.shortUsername}
-                      number2={group253Props.number2}
-                      shield_black_24dpProps={
-                        group253Props.shield_black_24dpProps
-                      }
-                      className="group-27"
-                    />
-                    <Group25
-                      number={group254Props.number}
-                      shortUsername={group254Props.shortUsername}
-                      number2={group254Props.number2}
-                      shield_black_24dpProps={
-                        group254Props.shield_black_24dpProps
-                      }
-                      className="group-28"
-                    />
-                    <Group25
-                      number={group255Props.number}
-                      shortUsername={group255Props.shortUsername}
-                      number2={group255Props.number2}
-                      shield_black_24dpProps={
-                        group255Props.shield_black_24dpProps
-                      }
-                      className="group-29"
-                    />
-                    <Group25
-                      number={group256Props.number}
-                      shortUsername={group256Props.shortUsername}
-                      number2={group256Props.number2}
-                      shield_black_24dpProps={
-                        group256Props.shield_black_24dpProps
-                      }
-                      className="group-30"
-                    />
-                    <Group25
-                      number={group257Props.number}
-                      shortUsername={group257Props.shortUsername}
-                      number2={group257Props.number2}
-                      shield_black_24dpProps={
-                        group257Props.shield_black_24dpProps
-                      }
-                      className="group-31"
-                    />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex-col">
-          <div className="flex-row-3">
-            <div
-              className="group-2"
-              style={{ backgroundImage: `url(${group2})` }}>
-              <div className="chart montserrat-medium-chicago-16px">
-                {chart}
-              </div>
-            </div>
-            <div
-              className="group-3"
-              style={{ backgroundImage: `url(${group3})` }}>
-              <div className="surname-2 montserrat-medium-chicago-16px">
-                {surname2}
-              </div>
-            </div>
-          </div>
-          <img className="capture" src={capture} />
-        </div>
-        <div
-          className="overlap-group"
-          style={{ backgroundImage: `url(${overlapGroup})` }}>
-          <div className="group-37">
-            <div
-              className="accountcircleblack24dp"
-              style={{ backgroundImage: `url(${account_Circle_Black_24Dp})` }}>
-              <img className="path-4" src={path4} />
-            </div>
-            <div className="giorgio-japaridze">{giorgioJaparidze}</div>
-          </div>
-          <div className="group-34">
-            <div
-              className="accountbalance-etblack24dp-1"
-              style={{
-                backgroundImage: `url(${account_Balance_Wallet_Black_24Dp1})`
-              }}>
-              <img className="path-6" src={path6} />
-            </div>
-            <div className="price">{price}</div>
-          </div>
-          <TopLabel label={topLabelProps.label} />
-          <div className="flex-row-4">
-            <div className="group-786">
-              <div className="group-35">
-                <div className="surname-3">{surname3}</div>
-              </div>
-              <div className="group-36">
-                <div className="surname-4">{surname4}</div>
-              </div>
-            </div>
-            <div className="flex-col-1">
-              <div className="overlap-group4-2">
-                <div className="cursor hidden "></div>
-                <TopLabel
-                  label={topLabel2Props.label}
-                  className="top-label-1"
-                />
-                <div className="group-787 border-class-1">
-                  <div className="x-input-text">{inputText}</div>
-                  <div
-                    className="expandmoreblack24dp"
-                    style={{
-                      backgroundImage: `url(${expand_More_Black_24Dp})`
-                    }}>
-                    <img className="path-1207" src={path1207} />
-                  </div>
-                </div>
-              </div>
-              <div className="overlap-group3-1">
-                <div className="cursor-1 hidden "></div>
-                <div className="light-text-fiel-tlined-6-states border-class-1">
-                  <TopLabel
-                    label={topLabel3Props.label}
-                    className="top-label-2"
-                  />
-                  <div className="overlap-group5">
-                    <div className="x-input-text-1">{inputText2}</div>
-                    <div className="cursor-2 hidden "></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="group-512">
-            <Brightness_4_black_24dp
-              brightness_4_Black_24Dp={
-                brightness_4_black_24dpProps.brightness_4_Black_24Dp
-              }
-              path430={brightness_4_black_24dpProps.path430}
-            />
-            <div className="light-selection-tcha-on5-states">
-              <div className="overlap-group5-3">
-                <div className="light-selection-switch-2-states">
-                  <div className="overlap-group6">
-                    <div className="x-color-l-track"></div>
-                    <div className="shadow">
-                      <div className="overlap-group7">
-                        <div className="rectangle"></div>
-                      </div>
-                    </div>
-                    <div className="x-color-l-thumb"></div>
-                  </div>
-                </div>
-                <div className="states hidden "></div>
-              </div>
-            </div>
-            <Brightness_4_black_24dp
-              path430={brightness_4_black_24dp2Props.path430}
-              brightness_4_Black_24Dp={
-                brightness_4_black_24dp2Props.brightness_4_Black_24Dp
-              }
-              className="brightnesshighblack24dp"
-            />
-          </div>
-        </div>
+        <Tabs
+          surname2={surname2}
+          group2={group2}
+          chart={chart}
+          group3={group3}
+          capture={capture}
+        />
+        <Right
+          account_Balance_Wallet_Black_24Dp1={account_Balance_Wallet_Black_24Dp1}
+          account_Circle_Black_24Dp={account_Circle_Black_24Dp}
+          brightness_4_black_24dp2Props={brightness_4_black_24dp2Props}
+          brightness_4_black_24dpProps={brightness_4_black_24dpProps}
+          expand_More_Black_24Dp={expand_More_Black_24Dp}
+          giorgioJaparidze={giorgioJaparidze}
+          inputText={inputText}
+          inputText2={inputText2}
+          overlapGroup={overlapGroup}
+          path1207={path1207}
+          path4={path4}
+          path6={path6}
+          price={price}
+          surname3={surname3}
+          surname4={surname4}
+          topLabel2Props={topLabel2Props}
+          topLabel3Props={topLabel3Props}
+          topLabelProps={topLabelProps}
+        />
       </div>
       <div className="flex-row-5">
         <div className="overlap-group1">
@@ -599,238 +247,6 @@ function CryptoBattleChart(props) {
               {openPositions}
             </div>
             <img className="line-1-1" src={line12} />
-            <div className="overlap-group3-2">
-              <div className="order montserrat-normal-chicago-10px">
-                {order}
-              </div>
-              <div className="symbol montserrat-normal-chicago-10px">
-                {symbol}
-              </div>
-              <div className="size montserrat-normal-chicago-10px">{size}</div>
-              <div className="open-price montserrat-normal-chicago-10px">
-                {openPrice}
-              </div>
-              <div className="swap montserrat-normal-chicago-10px">{swap}</div>
-              <div className="commision montserrat-normal-chicago-10px">
-                {commision}
-              </div>
-              <div className="taxes montserrat-normal-chicago-10px">
-                {taxes}
-              </div>
-              <div className="close-price montserrat-normal-chicago-10px">
-                {closePrice}
-              </div>
-              <div className="price-4 montserrat-normal-chicago-10px">
-                {price2}
-              </div>
-              <div className="tp montserrat-normal-chicago-10px">{tP}</div>
-              <div className="profit montserrat-normal-chicago-10px">
-                {profit}
-              </div>
-              <div className="symbol-1 montserrat-normal-chicago-10px">
-                {symbol2}
-              </div>
-              <div className="scroll-group-2">
-                <div className="overlap-group4-3">
-                  <div className="flex-col-2">
-                    <div className="flex-row-6">
-                      <div className="phone montserrat-normal-chicago-12px">
-                        {phone}
-                      </div>
-                      <div className="audnzd montserrat-normal-chicago-12px">
-                        {audnzd}
-                      </div>
-                      <div className="surname-5 montserrat-bold-jungle-green-12px">
-                        {surname5}
-                      </div>
-                      <div className="text-1 montserrat-normal-chicago-12px">
-                        {text1}
-                      </div>
-                      <div className="text-2 montserrat-normal-chicago-12px">
-                        {text2}
-                      </div>
-                      <div className="text-5 montserrat-normal-chicago-12px">
-                        {text5}
-                      </div>
-                      <div className="text-6 montserrat-normal-chicago-12px">
-                        {text6}
-                      </div>
-                      <div className="price-5 montserrat-bold-jungle-green-12px">
-                        {price3}
-                      </div>
-                      <div className="text-3 montserrat-bold-chicago-12px">
-                        {text3}
-                      </div>
-                      <div className="price-6 montserrat-bold-chicago-12px">
-                        {price4}
-                      </div>
-                      <div className="price-7 montserrat-bold-chicago-12px">
-                        {price5}
-                      </div>
-                      <div className="text-4 montserrat-bold-chicago-12px">
-                        {text4}
-                      </div>
-                      <Group546
-                        edit={group546Props.edit}
-                        close={group546Props.close}
-                      />
-                    </div>
-                    <img className="line-61" src={line61} />
-                    <div className="flex-row-7">
-                      <Group533 {...group533Props} />
-                      <Group546
-                        edit={group5462Props.edit}
-                        close={group5462Props.close}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex-row-8">
-                    <div className="flex-col-3">
-                      <Group536
-                        line62={group536Props.line62}
-                        line63={group536Props.line63}
-                        group533Props={group536Props.group533Props}
-                        group5332Props={group536Props.group5332Props}
-                      />
-                      <Group536
-                        line62={group5362Props.line62}
-                        line63={group5362Props.line63}
-                        group533Props={group5362Props.group533Props}
-                        group5332Props={group5362Props.group5332Props}
-                        className="group-5-1"
-                      />
-                      <Group536
-                        line62={group5363Props.line62}
-                        line63={group5363Props.line63}
-                        group533Props={group5363Props.group533Props}
-                        group5332Props={group5363Props.group5332Props}
-                        className="group-5-1"
-                      />
-                      <Group536
-                        line62={group5364Props.line62}
-                        line63={group5364Props.line63}
-                        group533Props={group5364Props.group533Props}
-                        group5332Props={group5364Props.group5332Props}
-                        className="group-5-1"
-                      />
-                      <Group536
-                        line62={group5365Props.line62}
-                        line63={group5365Props.line63}
-                        group533Props={group5365Props.group533Props}
-                        group5332Props={group5365Props.group5332Props}
-                        className="group-5-1"
-                      />
-                      <Group536
-                        line62={group5366Props.line62}
-                        line63={group5366Props.line63}
-                        group533Props={group5366Props.group533Props}
-                        group5332Props={group5366Props.group5332Props}
-                        className="group-5-1"
-                      />
-                      <Group536
-                        line62={group5367Props.line62}
-                        line63={group5367Props.line63}
-                        group533Props={group5367Props.group533Props}
-                        group5332Props={group5367Props.group5332Props}
-                        className="group-5-1"
-                      />
-                      <Group536
-                        line62={group5368Props.line62}
-                        line63={group5368Props.line63}
-                        group533Props={group5368Props.group533Props}
-                        group5332Props={group5368Props.group5332Props}
-                        className="group-5-1"
-                      />
-                    </div>
-                    <div className="flex-col-4">
-                      <Group546
-                        edit={group5463Props.edit}
-                        close={group5463Props.close}
-                        className="group-548"
-                      />
-                      <Group546
-                        edit={group5464Props.edit}
-                        close={group5464Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group5465Props.edit}
-                        close={group5465Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group5466Props.edit}
-                        close={group5466Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group5467Props.edit}
-                        close={group5467Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group5468Props.edit}
-                        close={group5468Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group5469Props.edit}
-                        close={group5469Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54610Props.edit}
-                        close={group54610Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54611Props.edit}
-                        close={group54611Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54612Props.edit}
-                        close={group54612Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54613Props.edit}
-                        close={group54613Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54614Props.edit}
-                        close={group54614Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54615Props.edit}
-                        close={group54615Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54616Props.edit}
-                        close={group54616Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54617Props.edit}
-                        close={group54617Props.close}
-                        className="group-5-2"
-                      />
-                      <Group546
-                        edit={group54618Props.edit}
-                        close={group54618Props.close}
-                        className="group-5-2"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="zoomoutmapblack24dp">
-            <img className="path-498" src={path498} />
           </div>
         </div>
         <div className="group-651 border-1px-alto">
@@ -1102,7 +518,7 @@ function CryptoBattleChart(props) {
           </div>
         </div>
       </div>
-    </div>
+    </PageContainer>
   )
 }
 
@@ -1146,207 +562,8 @@ function Group9(props) {
   )
 }
 
-function Group11(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
 
-  return (
-    <div className={`group-11 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-3 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
 
-function Group17(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
-
-  return (
-    <div className={`group-17 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-4 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
-
-function Group19(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
-
-  return (
-    <div className={`group-19 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-5 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
-
-function Group25(props) {
-  const {
-    number,
-    shortUsername,
-    number2,
-    shield_black_24dpProps,
-    className
-  } = props
-
-  return (
-    <div className={`group-25 ${className || ''}`}>
-      <div className="group-7">
-        <div className="overlap-group5-1">
-          <Shield_black_24dp
-            shield_Black_24Dp={shield_black_24dpProps.shield_Black_24Dp}
-            path2={shield_black_24dpProps.path2}
-          />
-          <div className="number-6 montserrat-black-white-10px">{number}</div>
-        </div>
-      </div>
-      <div className="short-username montserrat-normal-chicago-12px">
-        {shortUsername}
-      </div>
-      <div className="number-2 montserrat-medium-chicago-12px">{number2}</div>
-    </div>
-  )
-}
-
-function TopLabel(props) {
-  const { label, className } = props
-
-  return (
-    <div className={`top-label hidden  ${className || ''}`}>
-      <div className="overlap-group-1">
-        <div className="top-border-with-ackground-color"></div>
-        <div className="x-label roboto-normal-black-12px">{label}</div>
-      </div>
-    </div>
-  )
-}
-
-function Brightness_4_black_24dp(props) {
-  const { brightness_4_Black_24Dp, path430, className } = props
-
-  return (
-    <div
-      className={`brightness4black24dp ${className || ''}`}
-      style={{ backgroundImage: `url(${brightness_4_Black_24Dp})` }}>
-      <img className="path-4-1" src={path430} />
-    </div>
-  )
-}
-
-function Group546(props) {
-  const { edit, close, className } = props
-
-  return (
-    <div className={`group-546 ${className || ''}`}>
-      <div className="group-545">
-        <div className="edit montserrat-bold-white-12px">{edit}</div>
-      </div>
-      <div className="group-544">
-        <div className="close montserrat-bold-white-12px">{close}</div>
-      </div>
-    </div>
-  )
-}
-
-function Group533(props) {
-  const {
-    phone,
-    audnzd,
-    surname,
-    text7,
-    text8,
-    text11,
-    text12,
-    price,
-    text9,
-    price2,
-    price3,
-    text10,
-    className
-  } = props
-
-  return (
-    <div className={`group-533 ${className || ''}`}>
-      <div className="phone-1 montserrat-normal-chicago-12px">{phone}</div>
-      <div className="audnzd-1 montserrat-normal-chicago-12px">{audnzd}</div>
-      <div className="surname-1 montserrat-bold-jungle-green-12px">
-        {surname}
-      </div>
-      <div className="text- montserrat-normal-chicago-12px">{text7}</div>
-      <div className="text--1 montserrat-normal-chicago-12px">{text8}</div>
-      <div className="text--2 montserrat-normal-chicago-12px">{text11}</div>
-      <div className="text--3 montserrat-normal-chicago-12px">{text12}</div>
-      <div className="price-1 montserrat-bold-jungle-green-12px">{price}</div>
-      <div className="text--4 montserrat-bold-chicago-12px">{text9}</div>
-      <div className="price-2 montserrat-bold-chicago-12px">{price2}</div>
-      <div className="price-3 montserrat-bold-chicago-12px">{price3}</div>
-      <div className="text--5 montserrat-bold-chicago-12px">{text10}</div>
-    </div>
-  )
-}
-
-function Group536(props) {
-  const { line62, line63, group533Props, group5332Props, className } = props
-
-  return (
-    <div className={`group-536 ${className || ''}`}>
-      <img className="line-62" src={line62} />
-      <Group533 {...group533Props} className="group-53" />
-      <img className="line-63" src={line63} />
-      <Group533 {...group5332Props} className="group-53" />
-    </div>
-  )
-}
 const shield_black_24dpData = {
   shield_Black_24Dp:
     'https://anima-uploads.s3.amazonaws.com/projects/6050bdbf3d860d67a8f37fc4/releases/6050bf5b797b8775c3e2c2a6/img/path-1@1x.png',

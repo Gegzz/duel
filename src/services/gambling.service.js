@@ -50,8 +50,16 @@ const getGame = () => {
     .catch((err) => console.error(err))
 }
 
+const getTableData = () => {
+  return fetchWrapper
+    .get(`${baseUrl}/getTableData`)
+    .then(response => response)
+    .catch((err) => console.error(err))
+}
+
 export const gamblingService = {
   placeBet,
   connection,
-  getGame
+  getGame,
+  getTableData
 }

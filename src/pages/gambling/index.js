@@ -1,16 +1,23 @@
 import {
   Button,
   Card,
+  Checkbox,
+  Col,
   Descriptions,
   InputNumber,
   Progress,
   Result,
+  Row,
   Select,
   Space,
   Spin,
   Statistic,
   Table,
-  Typography
+  Typography,
+  Switch,
+  Tabs,
+  Image,
+  Divider
 } from 'antd'
 import React from 'react'
 import IFrame from 'react-iframe'
@@ -23,13 +30,17 @@ import {
   StopTwoTone,
   ClockCircleTwoTone,
   UserOutlined,
-  SnippetsOutlined
+  SnippetsOutlined,
+  SettingOutlined,
+  SettingFilled,
+  LoadingOutlined,
+  StarFilled
 } from '@ant-design/icons'
 import getWindowDimensions from '../../helpers/getWindowDimensions'
 import Meta from 'antd/lib/card/Meta'
 import Avatar from 'antd/lib/avatar/avatar'
 import { gamblingService } from '../../services/gambling.service'
-import { accountService } from '../../services'
+import { accountService, alertService } from '../../services'
 import dayjs from 'dayjs'
 import useCountDown from 'react-countdown-hook'
 import { HubConnectionState } from '@aspnet/signalr'
@@ -38,6 +49,15 @@ import './style.css'
 import consts from '../../consts'
 import Title from 'antd/lib/typography/Title'
 import { Option } from 'antd/lib/mentions'
+import {
+  BattleTab,
+  BetButton,
+  BetButtons,
+  OrderHistory,
+  Theme,
+  VerticalSpace,
+  WinningStreak
+} from './components'
 const config = require('../../config')
 
 const Flexed = (props) =>
@@ -64,6 +84,8 @@ const ignoreHorizontalMargins = {
   marginLeft: -55,
   marginRight: -50
 }
+
+const { TabPane } = Tabs
 
 const Gambling = () => {
   const [isEmptyState, setIsEmptyState] = React.useState(true)
@@ -101,9 +123,24 @@ const Gambling = () => {
 
   const [stateInitialized, setStateInitialized] = React.useState(false)
 
-  // React.useEffect(() => {
-  //   accountService.getBalance().then((balance) => setCurrentBalance(balance))
-  // }, [])
+  const [username, setUsername] = React.useState(
+    `${accountService.userValue?.firstName} ${accountService.userValue?.lastName}`
+  )
+
+  const [orderHistory, setOrderHistory] = React.useState([])
+  const [winningStreaks, setWinningStreaks] = React.useState([])
+
+  React.useEffect(() => {
+    accountService.getBalance().then((balance) => setCurrentBalance(balance))
+    getTableData()
+  }, [])
+
+  const getTableData = () => {
+    gamblingService.getTableData().then((data) => {
+      setOrderHistory(data.orderHistory)
+      setWinningStreaks(data.winningStreaks)
+    })
+  }
 
   React.useEffect(() => {
     //   gamblingService.connection.start().then(() => {
@@ -157,13 +194,27 @@ const Gambling = () => {
   }
 
   const ClickShort = () => {
+    if (!isValid()) return
+    
     setIsRiseOrFall(false)
     gamblingService.placeBet(betAmount, false)
   }
 
   const ClickLong = () => {
+    debugger
+    if (!isValid()) return
+    
     setIsRiseOrFall(true)
     gamblingService.placeBet(betAmount, true)
+  }
+
+  const isValid = () => {
+    if (!betAmount || betAmount <= 0) {
+      alertService.error('Please choose bet amount')
+      return false
+    }
+
+    return true;
   }
 
   const calculateTime = () => {
@@ -234,10 +285,14 @@ const Gambling = () => {
       setIsMatchEnded(true)
       setIsMatchStarted(false)
 
-      debugger
       setIsRiseOrFall(message.isRiseOrFall)
+      setBetAmount(message.amount)
+      setOpenPrice(message.startPrice)
+      setCurrentPrice(message.closePrice)
 
       setTime(new Date(0))
+
+      setTimeout(getTableData, 3000)
     })
 
     gamblingService.connection.on('BalanceUpdated', (message) => {
@@ -259,47 +314,76 @@ const Gambling = () => {
 
   return (
     <div>
-      <div
-        style={{
-          ...ignoreHorizontalMargins,
-          marginTop: -64,
-          display: 'flex',
-          flexDirection: 'row'
-        }}>
-        <Left />
-        <IFrame
-          url={config.iframeUrl}
-          id="myId"
-          height={getWindowDimensions().height - 300}
-          width={getWindowDimensions().width - 630}
-          display="initial"
-          position="relative"
-        />
-        <div style={{ width: 315 }}>
+      <Row>
+        <Col flex={1}>
+          <div className="header-container border-1px-alto">
+            <div className="header">HEADER</div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col flex={1} style={{ padding: 8 }}>
+          <WinningStreak winningStreaks={winningStreaks} />
+        </Col>
+        <Col flex={6} style={{ paddingBottom: 8, paddingTop: 8 }}>
+          <Tabs
+            defaultActiveKey="2"
+            onChange={(s) => console.log(s)}
+            style={{ height: '100%' }}
+            type="card">
+            <TabPane tab="Chart" key="1">
+              <IFrame url={config.iframeUrl} className="chart-iframe" />
+            </TabPane>
+            <TabPane tab="Battle" key="2">
+              <BattleTab
+                isEmptyState={isEmptyState}
+                isBetPlacedState={isBetPlacedState}
+                isMatchStarted={isMatchStarted}
+                isMatchEnded={isMatchEnded}
+                betAmount={betAmount}
+                riseOrFall={isRiseOrFall}
+                openPrice={openPrice}
+                currentPrice={currentPrice}
+                remainingSeconds={Math.round(timeLeft / 1000)}
+                threshold={threshold}
+                playerName={username}
+                opponentName={opponentName}
+                isWinner={won}
+                onTryAgain={reset}
+              />
+            </TabPane>
+          </Tabs>
+        </Col>
+        <Col flex={1} style={{ padding: 8 }}>
           <Card
             bodyStyle={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-start'
-            }}
-            >
+            }}>
             <Statistic
-              value="Giorgio Japaridze"
+              value={username}
               prefix={<UserOutlined />}
               className="user-title"
             />
+            <VerticalSpace />
             <Statistic
-              value={`$ ${'254,300.50'}`}
+              value={`$ ${currentBalance}`}
               prefix={<SnippetsOutlined />}
               className="money"
             />
+            <VerticalSpace />
             <Select
+              defaultValue="btc"
               onChange={handleChange}
               size="large"
               placeholder="Select currency">
               <Option value="btc">BTC</Option>
-              <Option value="eth">ETH</Option>
+              <Option value="eth" disabled>
+                ETH
+              </Option>
             </Select>
+            <VerticalSpace />
             <InputNumber
               formatter={(value) =>
                 `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -312,145 +396,29 @@ const Gambling = () => {
               step={5}
               disabled={isRiseOrFall !== null}
               size="large"
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               placeholder="Insert amount (ex. 100$)"
             />
+            <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
+            <VerticalSpace />
+            <BetButtons>
+              <BetButton onClick={ClickShort} short title="SHORT" />
+              <BetButton onClick={ClickLong} title="LONG" />
+            </BetButtons>
+            <VerticalSpace />
+            <Theme />
           </Card>
-        </div>
-        <div style={{ display: 'none' }}>
-          {/* IsEmptyState */}
-          <Flexed conditions={isEmptyState}>
-            <InputNumber
-              formatter={(value) =>
-                `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-              }
-              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-              onChange={(value) => {
-                if (value > 0) setBetAmount(value)
-              }}
-              value={betAmount}
-              step={5}
-              disabled={isRiseOrFall !== null}
-              size="large"
-            />
-          </Flexed>
-          <Flexed conditions={isEmptyState}>
-            <BetButton
-              short
-              title="Short"
-              onClick={ClickShort}
-              disabled={isRiseOrFall !== null}
-            />
-            <BetButton
-              title="Long"
-              onClick={ClickLong}
-              disabled={isRiseOrFall !== null}
-            />
-          </Flexed>
-          {/* IsBetPlaced */}
-          <Flexed conditions={isBetPlacedState}>
-            <Result
-              icon={<Spin size="large" />}
-              title="Waiting for opponent..."
-            />
-          </Flexed>
-          <Flexed conditions={isMatchStarted}>
-            <Result
-              title={Math.round(timeLeft / 1000)}
-              icon={<ClockCircleTwoTone />}
-            />
-          </Flexed>
-          <Flexed
-            conditions={isBetPlacedState || isMatchStarted || isMatchEnded}>
-            <Card>
-              <Statistic
-                title="Bet Amount"
-                value={betAmount}
-                prefix={<DollarTwoTone />}
-              />
-            </Card>
-            {isMatchStarted && (
-              <Card>
-                <Statistic
-                  title="Open Price"
-                  value={openPrice}
-                  prefix={<FundTwoTone />}
-                />
-              </Card>
-            )}
-            <Card>
-              <Statistic
-                title="Prediction"
-                value={isRiseOrFall ? 'Rise' : 'Fall'}
-                valueStyle={{
-                  color: isRiseOrFall ? '#3f8600' : consts.colors.loose
-                }}
-                prefix={
-                  isRiseOrFall ? <ArrowUpOutlined /> : <ArrowDownOutlined />
-                }
-              />
-            </Card>
-          </Flexed>
-          {/* IsMatchStarted */}
-          <Flexed conditions={isMatchStarted}>
-            <Card
-              style={{
-                width: '100%',
-                marginLeft: 16,
-                marginRight: 14,
-                marginBottom: 16
-              }}>
-              <Meta
-                avatar={
-                  <Avatar
-                    style={{
-                      backgroundColor: isRiseOrFall
-                        ? consts.colors.loose
-                        : consts.colors.win
-                    }}>
-                    {opponentName[0]}
-                  </Avatar>
-                }
-                title={opponentName}
-                description="Rank: 48112"
-              />
-            </Card>
-          </Flexed>
-          <Flexed conditions={isMatchStarted}>
-            <Progress
-              percent={currentPrice - openPrice + threshold / 100 + 50}
-              strokeColor={consts.colors.win}
-              trailColor={consts.colors.loose}
-              showInfo={false}
-              strokeLinecap="square"
-              strokeWidth={12}
-            />
-          </Flexed>
-          <Flexed conditions={isMatchStarted}>
-            <Statistic title="Threshold" value={threshold} />
-            <Statistic title="CurrentPrice" value={currentPrice} />
-          </Flexed>
-          {/* IsMatchStarted */}
-          <Flexed conditions={isMatchEnded}>
-            <Result
-              icon={
-                won ? (
-                  <TrophyTwoTone twoToneColor={consts.colors.win} />
-                ) : (
-                  <StopTwoTone twoToneColor={consts.colors.loose} />
-                )
-              }
-              title={won ? 'Impressive, You Won!' : 'Lost, Will You Try Again?'}
-              extra={
-                <Button type="primary" onClick={reset}>
-                  Re-Battle!
-                </Button>
-              }
-            />
-          </Flexed>
-        </div>
-      </div>
-      <OrderHistory />
+        </Col>
+      </Row>
+      <Row>
+        <Col flex={1}>
+          <OrderHistory data={orderHistory} />
+        </Col>
+      </Row>
     </div>
   )
 }
@@ -459,109 +427,5 @@ const textsWin = ['Impressive, You Won!']
 
 const getWinningText = () =>
   textsWin[Math.floor(Math.random() * textsWin.length)]
-
-const BetButton = ({ title, short, ...props }) => (
-  <Button
-    style={{
-      width: '50%',
-      borderWidth: 0,
-      borderRadius: 0,
-      backgroundColor: short ? consts.colors.loose : consts.colors.win,
-      height: 50
-    }}
-    type="primary"
-    size="large"
-    {...props}>
-    {title}
-  </Button>
-)
-
-const dataSource = [
-  {
-    key: '1',
-    ranking: 1,
-    username: 'Long username',
-    winningStreak: 40
-  },
-  {
-    key: '2',
-    ranking: 2,
-    username: 'short username',
-    winningStreak: 39
-  },
-  {
-    key: '3',
-    ranking: 3,
-    username: 'short username',
-    winningStreak: 39
-  },
-  {
-    key: '4',
-    ranking: 4,
-    username: 'short username',
-    winningStreak: 39
-  }
-]
-
-const columns = [
-  {
-    title: 'Ranking',
-    dataIndex: 'ranking',
-    key: 'ranking',
-    render: (ranking) => (
-      <Avatar style={{ backgroundColor: 'transparent', width: 48 }}>
-        <Shield number={ranking} />
-      </Avatar>
-    )
-  },
-  {
-    title: 'Username',
-    dataIndex: 'username',
-    key: 'username'
-  },
-  {
-    title: 'Winning Streak',
-    dataIndex: 'winningStreak',
-    key: 'winningStreak'
-  }
-]
-
-const Left = () => (
-  <div
-    style={{
-      width: 315,
-      height: getWindowDimensions().height - 300,
-      padding: 8
-    }}>
-    <Table
-      dataSource={dataSource}
-      columns={columns}
-      title={() => (
-        // <Button
-        //   size="large"
-        //   type="primary"
-        //   style={{
-        //     backgroundColor: consts.colors.primary,
-        //     borderColor: consts.colors.primary
-        //   }}>
-        //   Winning Streak
-        // </Button>
-        <Typography className="tab-title">Winning Streak</Typography>
-      )}
-      pagination={false}
-    />
-    ;
-  </div>
-)
-
-const OrderHistory = () => (
-  <div style={{ ...ignoreHorizontalMargins, height: 200, padding: 8 }}>
-    <Table
-      dataSource={dataSource}
-      columns={columns}
-      title={() => <Typography>Order history</Typography>}
-    />
-  </div>
-)
 
 export { Gambling }
