@@ -40,7 +40,7 @@ import getWindowDimensions from '../../helpers/getWindowDimensions'
 import Meta from 'antd/lib/card/Meta'
 import Avatar from 'antd/lib/avatar/avatar'
 import { gamblingService } from '../../services/gambling.service'
-import { accountService } from '../../services'
+import { accountService, alertService } from '../../services'
 import dayjs from 'dayjs'
 import useCountDown from 'react-countdown-hook'
 import { HubConnectionState } from '@aspnet/signalr'
@@ -132,13 +132,15 @@ const Gambling = () => {
 
   React.useEffect(() => {
     accountService.getBalance().then((balance) => setCurrentBalance(balance))
-    gamblingService
-      .getTableData()
-      .then((data) => {
-        setOrderHistory(data.orderHistory)
-        setWinningStreaks(data.winningStreaks)
-      })
+    getTableData()
   }, [])
+
+  const getTableData = () => {
+    gamblingService.getTableData().then((data) => {
+      setOrderHistory(data.orderHistory)
+      setWinningStreaks(data.winningStreaks)
+    })
+  }
 
   React.useEffect(() => {
     //   gamblingService.connection.start().then(() => {
@@ -192,13 +194,27 @@ const Gambling = () => {
   }
 
   const ClickShort = () => {
+    if (!isValid()) return
+    
     setIsRiseOrFall(false)
     gamblingService.placeBet(betAmount, false)
   }
 
   const ClickLong = () => {
+    debugger
+    if (!isValid()) return
+    
     setIsRiseOrFall(true)
     gamblingService.placeBet(betAmount, true)
+  }
+
+  const isValid = () => {
+    if (!betAmount || betAmount <= 0) {
+      alertService.error('Please choose bet amount')
+      return false
+    }
+
+    return true;
   }
 
   const calculateTime = () => {
@@ -275,6 +291,8 @@ const Gambling = () => {
       setCurrentPrice(message.closePrice)
 
       setTime(new Date(0))
+
+      setTimeout(getTableData, 3000)
     })
 
     gamblingService.connection.on('BalanceUpdated', (message) => {
@@ -356,11 +374,14 @@ const Gambling = () => {
             />
             <VerticalSpace />
             <Select
+              defaultValue="btc"
               onChange={handleChange}
               size="large"
               placeholder="Select currency">
               <Option value="btc">BTC</Option>
-              <Option value="eth">ETH</Option>
+              <Option value="eth" disabled>
+                ETH
+              </Option>
             </Select>
             <VerticalSpace />
             <InputNumber
