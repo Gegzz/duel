@@ -127,8 +127,17 @@ const Gambling = () => {
     `${accountService.userValue?.firstName} ${accountService.userValue?.lastName}`
   )
 
+  const [orderHistory, setOrderHistory] = React.useState([])
+  const [winningStreaks, setWinningStreaks] = React.useState([])
+
   React.useEffect(() => {
     accountService.getBalance().then((balance) => setCurrentBalance(balance))
+    gamblingService
+      .getTableData()
+      .then((data) => {
+        setOrderHistory(data.orderHistory)
+        setWinningStreaks(data.winningStreaks)
+      })
   }, [])
 
   React.useEffect(() => {
@@ -260,8 +269,10 @@ const Gambling = () => {
       setIsMatchEnded(true)
       setIsMatchStarted(false)
 
-      debugger
       setIsRiseOrFall(message.isRiseOrFall)
+      setBetAmount(message.amount)
+      setOpenPrice(message.startPrice)
+      setCurrentPrice(message.closePrice)
 
       setTime(new Date(0))
     })
@@ -294,7 +305,7 @@ const Gambling = () => {
       </Row>
       <Row>
         <Col flex={1} style={{ padding: 8 }}>
-          <WinningStreak />
+          <WinningStreak winningStreaks={winningStreaks} />
         </Col>
         <Col flex={6} style={{ paddingBottom: 8, paddingTop: 8 }}>
           <Tabs
@@ -319,6 +330,8 @@ const Gambling = () => {
                 threshold={threshold}
                 playerName={username}
                 opponentName={opponentName}
+                isWinner={won}
+                onTryAgain={reset}
               />
             </TabPane>
           </Tabs>
@@ -382,7 +395,7 @@ const Gambling = () => {
       </Row>
       <Row>
         <Col flex={1}>
-          <OrderHistory />
+          <OrderHistory data={orderHistory} />
         </Col>
       </Row>
     </div>

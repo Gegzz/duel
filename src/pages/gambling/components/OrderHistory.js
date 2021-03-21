@@ -95,9 +95,9 @@ const historyColumns = [
   }
 ]
 
-const OrderHistory = () => (
+const OrderHistory = ({ data }) => (
   <Table
-    dataSource={historyDataSource}
+    dataSource={data}
     columns={historyColumns}
     title={() => <Typography>Order history</Typography>}
   />

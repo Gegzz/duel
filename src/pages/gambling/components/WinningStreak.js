@@ -67,9 +67,9 @@ const columns = [
   }
 ]
 
-const Left = () => (
+const Left = ({ winningStreaks }) => (
   <Table
-    dataSource={dataSource}
+    dataSource={winningStreaks}
     columns={columns}
     title={() => (
       // <Button

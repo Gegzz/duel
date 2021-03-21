@@ -5,7 +5,14 @@ import finishsvg from './assets/finish.svg'
 import skull from './assets/skull.svg'
 import { BetButton } from '.'
 
-const Finish = ({ betAmount, riseOrFall, openPrice, currentPrice }) => (
+const Finish = ({
+  betAmount,
+  riseOrFall,
+  openPrice,
+  currentPrice,
+  isWinner,
+  onTryAgain
+}) => (
   <div
     style={{
       alignItems: 'center',
@@ -40,12 +47,25 @@ const Finish = ({ betAmount, riseOrFall, openPrice, currentPrice }) => (
           fontFamily: 'Montserrat',
           fontWeight: 500,
           fontSize: 16,
-          color: 'white'
+          color: 'white',
+          display: 'inline-flex'
         }}>
-        {'Unfortunately, you lost this time...'.toUpperCase()}
+        {`${isWinner ? 'Congratulations' : 'Unfortunately'}, you`.toUpperCase()}
+        &nbsp;
+        <Typography
+          style={{
+            fontFamily: 'Montserrat',
+            fontWeight: 800,
+            fontSize: 16,
+            color: isWinner ? 'var(--green)' : 'var(--red)'
+          }}>
+          {isWinner ? 'WON' : 'LOST'}
+        </Typography>
+        &nbsp;
+        {`this time...`.toUpperCase()}
       </Typography>
       <VerticalSpace />
-      <BetButton title="TRY AGAIN" />
+      <BetButton title="TRY AGAIN" onClick={onTryAgain} />
       <VerticalSpace />
       <VerticalSpace />
       <div
