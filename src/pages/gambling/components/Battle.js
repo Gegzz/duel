@@ -5,7 +5,16 @@ import playergreen from './assets/playergreen.svg'
 import playerred from './assets/playerred.svg'
 import { Progress, Statistic, Typography } from 'antd'
 
-const Battle = () => (
+const Battle = ({
+  remainingSeconds,
+  betAmount,
+  riseOrFall,
+  openPrice,
+  currentPrice,
+  threshold,
+  playerName,
+  opponentName
+}) => (
   <div
     style={{
       alignItems: 'center',
@@ -44,7 +53,7 @@ const Battle = () => (
         style={{ paddingTop: 16 }}
       />
       <Statistic
-        value="54 seconds remaining"
+        value={`${remainingSeconds ?? 0} seconds remaining`}
         className="user-title"
         valueStyle={{ color: 'white' }}
       />
@@ -64,11 +73,11 @@ const Battle = () => (
               fontWeight: 500,
               color: 'white'
             }}>
-            Lucy Morningstar
+            {!riseOrFall ? playerName : opponentName}
           </Typography>
         </div>
         <Progress
-          percent={50}
+          percent={currentPrice - openPrice + threshold / 100 + 50}
           strokeColor="var(--red)"
           trailColor="var(--green)"
           showInfo={false}
@@ -84,7 +93,7 @@ const Battle = () => (
               fontWeight: 500,
               color: 'white'
             }}>
-            Giorgio Japaridze
+            {riseOrFall ? playerName : opponentName}
           </Typography>
         </div>
       </div>
@@ -94,10 +103,29 @@ const Battle = () => (
           justifyContent: 'space-evenly',
           flexDirection: 'row'
         }}>
-        <FourText text="Bet amount: " value="100$" green hideShield />
-        <FourText text="Open price: " value="55,156.69" green hideShield />
-        <FourText text="Prediction: " value="Rise" green hideShield />
-        <FourText text="Current price: " value="55,156.69" hideShield />
+        <FourText
+          text="Bet amount: "
+          value={`$${betAmount}`}
+          green
+          hideShield
+        />
+        <FourText
+          text="Open price: "
+          value={openPrice.toFixed(2)}
+          green
+          hideShield
+        />
+        <FourText
+          text="Prediction: "
+          value={riseOrFall ? 'Rise' : 'Fall'}
+          green={riseOrFall}
+          hideShield
+        />
+        <FourText
+          text="Current price: "
+          value={currentPrice.toFixed(2)}
+          hideShield
+        />
       </div>
     </div>
   </div>

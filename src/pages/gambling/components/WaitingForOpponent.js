@@ -3,7 +3,7 @@ import { Spin, Typography } from 'antd'
 import { ShieldText } from '.'
 import WaitingForOpponentIm from './assets/waitingforopponent.svg'
 
-const WaitingForOpponent = () => (
+const WaitingForOpponent = ({ betAmount, riseOrFall }) => (
   <div
     style={{
       alignItems: 'center',
@@ -45,8 +45,16 @@ const WaitingForOpponent = () => (
           flexDirection: 'row',
           justifyContent: 'space-evenly'
         }}>
-        <ShieldText text="Bet amount:" green value="100$" />
-        <ShieldText text="Bet amount:" green value="Rise" />
+        <ShieldText
+          text="Bet amount:"
+          green={riseOrFall}
+          value={`$${betAmount}`}
+        />
+        <ShieldText
+          text="Prediction:"
+          green={riseOrFall}
+          value={riseOrFall ? 'Rise' : 'Fall'}
+        />
       </div>
     </div>
   </div>

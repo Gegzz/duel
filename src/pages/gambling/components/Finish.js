@@ -5,7 +5,7 @@ import finishsvg from './assets/finish.svg'
 import skull from './assets/skull.svg'
 import { BetButton } from '.'
 
-const Finish = () => (
+const Finish = ({ betAmount, riseOrFall, openPrice, currentPrice }) => (
   <div
     style={{
       alignItems: 'center',
@@ -54,10 +54,29 @@ const Finish = () => (
           justifyContent: 'space-evenly',
           flexDirection: 'row'
         }}>
-        <FourText text="Bet amount: " value="100$" green />
-        <FourText text="Open price: " value="55,156.69" green />
-        <FourText text="Prediction: " value="Rise" green />
-        <FourText text="Current price: " value="55,156.69" />
+        <FourText
+          text="Bet amount: "
+          value={`$${betAmount}`}
+          green
+          hideShield
+        />
+        <FourText
+          text="Open price: "
+          value={openPrice.toFixed(2)}
+          green
+          hideShield
+        />
+        <FourText
+          text="Prediction: "
+          value={riseOrFall ? 'Rise' : 'Fall'}
+          green={riseOrFall}
+          hideShield
+        />
+        <FourText
+          text="Current price: "
+          value={currentPrice.toFixed(2)}
+          hideShield
+        />
       </div>
     </div>
   </div>

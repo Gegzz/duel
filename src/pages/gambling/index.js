@@ -311,6 +311,14 @@ const Gambling = () => {
                 isBetPlacedState={isBetPlacedState}
                 isMatchStarted={isMatchStarted}
                 isMatchEnded={isMatchEnded}
+                betAmount={betAmount}
+                riseOrFall={isRiseOrFall}
+                openPrice={openPrice}
+                currentPrice={currentPrice}
+                remainingSeconds={Math.round(timeLeft / 1000)}
+                threshold={threshold}
+                playerName={username}
+                opponentName={opponentName}
               />
             </TabPane>
           </Tabs>
