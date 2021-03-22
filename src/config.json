@@ -1,4 +1,4 @@
 {
-  "apiUrl": "http://localhost:5000",
+  "apiUrl": "http://battless-api.herokuapp.com",
   "iframeUrl": "http://localhost:4200"
 }
